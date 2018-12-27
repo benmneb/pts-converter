@@ -65,7 +65,7 @@ class App extends Component {
             <em>None</em>
           </MenuItem>
           { Object
-            .keys(ptsData)
+            .keys(ptsStructure)
             .sort((a, b) => b.startsWith('b') ? -1 : a < b)
             .map(k => <MenuItem value={k} key={k}>{k}</MenuItem>)}
         </Select>
@@ -84,9 +84,10 @@ class App extends Component {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          { typeof ptsData[this.state.selectedBook] !== 'undefined'
+          { typeof ptsStructure[this.state.selectedBook] !== 'undefined'
             ? Object
-              .keys(ptsData[this.state.selectedBook])
+              .keys(ptsStructure[this.state.selectedBook])
+              .filter(x => x !== '')
               .map(k => <MenuItem value={k} key={k}>{k}</MenuItem>)
             : null
           }
@@ -99,18 +100,22 @@ class App extends Component {
           style={{ minWidth: '80px' }}
           value={this.state.selectedNum}
           onChange={(e) => this.setState({ selectedNum: e.target.value })}
-          disabled={!this.state.selectedBook && !this.state.selectedDiv}
+          disabled={!this.state.selectedBook || gv(ptsData, `${this.state.selectedBook}.${this.state.selectedDiv}`, null) === null}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          { typeof ptsData[this.state.selectedBook] !== 'undefined'
-            && typeof ptsData[this.state.selectedBook][this.state.selectedDiv] !== 'undefined'
+          { gv(ptsData, `${this.state.selectedBook}.${this.state.selectedDiv}`, null) !== null
             ? Object
-              .entries(ptsData[this.state.selectedBook][this.state.selectedDiv])
+              .entries(gv(ptsData, `${this.state.selectedBook}.${this.state.selectedDiv}`, null))
               .filter(([k,v]) => v !== null)
               .map(([k,v]) => <MenuItem value={k} key={k}>{k}</MenuItem>)
-            : null
+            : Array.isArray(gv(ptsData, `${this.state.selectedBook}`, null))
+              ? Object
+                .entries(gv(ptsData, `${this.state.selectedBook}`, null))
+                .filter(([k,v]) => v !== null)
+                .map(([k,v]) => <MenuItem value={k} key={k}>{k}</MenuItem>)
+              : null
           }
         </Select>
       </FormControl>
@@ -119,12 +124,14 @@ class App extends Component {
         <li>Es kann sein, dass eine PTS Stelle in den nächsten Text überläuft. Die Markierung ist nur der Anfang der Stelle. Durch Nachschlagen der nächst höheren PTS Nummer kann herausgefunden werden, wo die vorherige Stelle endet.</li>
         <li>"Network Error" kann bedeuten, dass der Link nicht existiert (es gibt z.B. nicht immer Übersetzungen von Bodhi)</li>
         <li>Fehler bitte melden</li>
+        <li>uppercase: http://www.palitext.com/subpages/PTS_Abbreviations.pdf</li>
       </ul>
     </Card>
   }
 
   renderResults() {
     const result = gv(ptsData, `${this.state.selectedBook}.${this.state.selectedDiv}.${this.state.selectedNum}`, null)
+    console.log(result, `${this.state.selectedBook}.${this.state.selectedDiv}.${this.state.selectedNum}`, ptsData)
     if (result === null) {
       return null
     }

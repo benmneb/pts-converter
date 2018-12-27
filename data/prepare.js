@@ -20,45 +20,101 @@ const toRoman = {
   'i10': 'x'
 }
 
+const ptsAbbrevs = {
+  ds: 'Dhs',
+  kv: 'Kv',
+  pp: 'Pp',
+  vb: 'Vib',
+  bv: 'Bv ',
+  cnd: 'Nidd II',
+  cp: 'Cp',
+  dhp: 'Dhp',
+  iti: 'It',
+  ja: 'Ja',
+  mil: 'Mil',
+  mnd: 'Nidd I',
+  ne: 'Nett',
+  ps: 'Patis',
+  pv: 'Pv',
+  snp: 'Sn',
+  thag: 'Th',
+  thig: 'Thi',
+  ud: 'Ud',
+  vv: 'Vv',
+  an: 'A',
+  dn: 'D',
+  mn: 'M',
+  sn: 'S'
+}
+
+const addToData = ($,t,suttaId) => {
+  let book = suttaId.match(/[a-z]+/gi)[0] // TODO: nomralize correct an => A
+  book = typeof ptsAbbrevs[book] !== 'undefined'
+    ? ptsAbbrevs[book]
+    : book
+  const cls = $(t).attr('class')
+  if (cls && cls !== 'pts' && cls !== 'pts-vp-pli') book += ` (${cls.replace('pts', '')})`
+
+  let number = $(t).attr('id').replace(cls, '')
+
+  /* if (book.toLowerCase().startsWith('dhp')) {
+    if (_.get(dataLookup, `${book}`, null) === null) {
+      _.set(dataLookup, `${book}`, {})
+    }
+    console.log('HERE', number)
+    _.set(dataLookup, `${book}.${number}`, [suttaId, $(t).attr('id')])
+    return
+  } */
+
+  if (number.includes('.')) {
+    const div = toRoman['i' + number.split('.')[0]]
+    const num = parseInt(number.split('.')[1])
+
+    if (isNaN(num)) console.log('NAN', $(t).attr('id'))
+
+    _.set(dataLookup, `${book}.${div}.${num}`, [suttaId, $(t).attr('id')])
+  } else {
+    number = parseInt(number)
+
+    if (isNaN(number)) console.log('NAN', $(t).attr('id'))
+
+    _.set(dataLookup, `${book}.${number}`, [suttaId, $(t).attr('id')])
+  }
+}
+
 glob('../sc-data/po_text/pli-en/**/*.po', (err, files) => {
   if (err) console.log(err)
   files.map(file => PO.load(file, (err, po) => {
     if (err) console.log(err)
 
     po.items.map(item => {
-      const ptsComment = item.extractedComments.filter(c => c.includes('pts-vp-pl'))
+      const ptsComment = item.extractedComments
+        .filter(c => c.includes('pts-vp-pli') || c.includes('pts1ed') || c.includes('pts2ed'))
+        .map(x => {
+          const $ = cheerio.load(x)
+          let pts = $('a.pts-vp-pli')
 
-      if (ptsComment.length > 1) console.log('WHAT IS HAPPENINGT?')
-      if (ptsComment.length > 0) {
-        let pts = cheerio.load(ptsComment[0])('a.pts-vp-pli').attr('id')
+          if (pts.length === 0) {
+            pts = $('a.pts1ed')
+          }
 
-        if (pts === undefined) {
-          return // TODO: what here?
-          // console.log(item.msgctxt)
-          // pts = ptsComment[0].match(/(?<=pts-vp-pl)i\d+\.\d+/gi)[0]
-        }
+          if (pts.length === 0) {
+            pts = $('a.pts2ed')
+          }
 
-        const ptsBook = item.msgctxt.match(/^[a-z-]+/gi)[0].replace('pli-tv-', '')
-        let pts2 = pts.replace('pts-vp-pl', '')
-        const ptsDiv = pts2.split('.')[0]
-        const ptsNum = pts2.split('.')[1]
-        if(toRoman[ptsDiv] === undefined) console.log(ptsComment)
+          const suttaId = item.msgctxt.split(':')[0]
 
-        const newEntry = [item.msgctxt.split(':')[0], pts]
-        _.set(dataLookup, `${ptsBook}.${toRoman[ptsDiv]}.${ptsNum}`, newEntry)
-      }
+          if (pts.attr('id') === undefined) {
+            return // TODO: what here?
+            // console.log(item.msgctxt)
+            // pts = ptsComment[0].match(/(?<=pts-vp-pl)i\d+\.\d+/gi)[0]
+          }
+
+          addToData($, pts, suttaId)
+        })
     })
   }))
 })
-
-const addToData = ($,t,suttaId) => {
-  let book = suttaId.match(/[a-z]+/gi)[0] // TODO: nomralize correct an => A
-  const cls = $(t).attr('class')
-  if (cls && cls !== 'pts') book += ` (${cls.replace('pts', '')})`
-  let number = parseInt($(t).attr('id').replace(cls, ''))
-
-  _.set(dataLookup, `${book}.${number}`, [suttaId, $(t).attr('id')])
-}
 
 glob('../sc-data/html_text/pli/**/*.html', (err, files) => {
   files.map(file => {
@@ -74,10 +130,21 @@ glob('../sc-data/html_text/pli/**/*.html', (err, files) => {
     $('article').find('.pts1ed').map((_,t) => addToData($,t, suttaId))
     $('article').find('.pts2ed').map((_,t) => addToData($,t, suttaId))
   })
-})
 
-setTimeout(() => {
-  fs.writeFileSync('src/data/pts_lookup.json', JSON.stringify(dataLookup))
-  Object.keys(dataLookup).map(b => Object.keys(dataLookup[b]).map(c => _.set(dataStructure, `${b}.${c}`, dataLookup[b][c].length)))
-  fs.writeFileSync('src/data/pts_structure.json', JSON.stringify(dataStructure))
-}, 15 * 1000)
+  setTimeout(() => {
+    fs.writeFileSync('src/data/pts_lookup.json', JSON.stringify(dataLookup))
+    Object
+      .keys(dataLookup)
+      .sort()
+      .map(b => {
+        if (dataLookup[b] instanceof Array) {
+          dataStructure[b] = { '': dataLookup[b].length }
+        } else {
+          Object
+            .keys(dataLookup[b])
+            .map(c => _.set(dataStructure, `${b}.${c}`, dataLookup[b][c].length))
+        }
+      })
+    fs.writeFileSync('src/data/pts_structure.json', JSON.stringify(dataStructure))
+  }, 15 * 1000)
+})
