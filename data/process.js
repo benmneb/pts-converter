@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const _ = require('lodash');
 const glob = require('glob');
 const cheerio = require('cheerio');
@@ -6,10 +7,56 @@ const naturalSort = require('natural-sort');
 
 const DATA_DIR = './sc-data';
 const MARKER_CLASSES = ['sc', 'pts', 'ms'];
+
+const NUM_ROMAN = {
+  'i': 'i',
+  'i1': 'i',
+  'i2': 'ii',
+  'i3': 'iii',
+  'i4': 'iv',
+  'i5': 'v',
+  'i6': 'vi',
+  'i7': 'vii',
+  'i8': 'viii',
+  'i9': 'ix',
+  'i10': 'x'
+}
+
+const ABBREVS_SC = {
+  ds: 'Dhs',
+  kv: 'Kv',
+  pp: 'Pp',
+  vb: 'Vib',
+  bv: 'Bv ',
+  cnd: 'Nidd II',
+  cp: 'Cp',
+  dhp: 'Dhp',
+  iti: 'It',
+  ja: 'Ja',
+  mil: 'Mil',
+  mnd: 'Nidd I',
+  ne: 'Nett',
+  ps: 'Patis',
+  pv: 'Pv',
+  snp: 'Sn',
+  thag: 'Th',
+  thig: 'Thi',
+  ud: 'Ud',
+  vv: 'Vv',
+  an: 'AN',
+  dn: 'DN',
+  mn: 'MN',
+  sn: 'SN'
+};
+
 // build mapping for PTS marks containing ranges
 // of different types of marks. I.e.
 let RESULT = {};
 
+const extractBookName = (filename) => {
+  const basename = path.basename(filename);
+
+}
 
 glob(`${DATA_DIR}/html_text/pli/**/*.html`, (err, files) => {
   if (err) {
@@ -22,6 +69,10 @@ glob(`${DATA_DIR}/html_text/pli/**/*.html`, (err, files) => {
     .sort(naturalSort())
     .map(filename => {
       const $ = cheerio.load(fs.readFileSync(filename));
+
+      const suttaId = $('section.sutta').attr('id')
+
+      if (!suttaId) return console.log('No ID HERE', file)
 
       $('body')
         .find('.sutta > article > p')
@@ -62,7 +113,11 @@ glob(`${DATA_DIR}/html_text/pli/**/*.html`, (err, files) => {
                   return;
                 }
 
-                RESULT[nextPTSId][abbrev] = { first: data.last, last: data.last, exactStart: false };
+                RESULT[nextPTSId][abbrev] = {
+                  first: [suttaId, data.last],
+                  last: [suttaId, data.last],
+                  exactStart: false
+                };
               });
             }
 
@@ -81,11 +136,11 @@ glob(`${DATA_DIR}/html_text/pli/**/*.html`, (err, files) => {
               const eClass = $(e3).attr('class');
 
               if (!RESULT[nextPTSId][eClass]) {
-                RESULT[nextPTSId][eClass] = {};
+                RESULT[nextPTSId][eClass] = { suttaId };
               }
 
-              RESULT[nextPTSId][eClass].first = eId;
-              RESULT[nextPTSId][eClass].last = eId;
+              RESULT[nextPTSId][eClass].first = [suttaId, eId];
+              RESULT[nextPTSId][eClass].last = [suttaId, eId];
               RESULT[nextPTSId][eClass].exactStart = true;
             });
 
@@ -99,17 +154,27 @@ glob(`${DATA_DIR}/html_text/pli/**/*.html`, (err, files) => {
               if (!RESULT[currentPTSId][eClass]) {
                 // initialize new reference if not existing
                 RESULT[currentPTSId][eClass] = {
-                  first: eId,
-                  last: eId,
+                  first: [suttaId, eId],
+                  last: [suttaId, eId],
                   exactStart: false
                 };
               } else {
-                RESULT[currentPTSId][eClass].last = eId;
+                RESULT[currentPTSId][eClass].last = [suttaId, eId];
               }
             });
           }
         });
     });
 
-    console.log('DONE', JSON.stringify(RESULT, 0, 2));
+    // Create Mapping from text reference to pts id
+    Object.keys(RESULT)
+      .map(ptsId => {
+        if (!RESULT[ptsId].sc) {
+          return;
+        }
+
+        let book = suttaId.match(/[a-z]+/gi)[0]
+      })
+
+    fs.writeFileSync('out.json', JSON.stringify(RESULT));
 });
