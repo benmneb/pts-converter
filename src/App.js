@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 import {
   Card,
@@ -16,19 +16,6 @@ import './App.css';
 import ptsData from './data/pts_lookup.json'
 import ResultCard from './ResultCard';
 
-// const FROM_ROMAN = {
-//   'i': 'i1',
-//   'ii': 'i2',
-//   'iii': 'i3',
-//   'iv': 'i4',
-//   'v': 'i5',
-//   'vi': 'i6',
-//   'vii': 'i7',
-//   'viii': 'i8',
-//   'ix': 'i9',
-//   'x': 'i10'
-// }
-
 function hasMoreThanOne(array, what) {
   let indexes = [];
   for (let i = 0; i < array.length; i++) {
@@ -39,28 +26,22 @@ function hasMoreThanOne(array, what) {
   return indexes;
 }
 
-class App extends Component {
+export default function App() {
+  const [selectedBook, setSelectedBook] = useState('')
+  const [selectedDiv, setSelectedDiv] = useState('')
+  const [selectedNum, setSelectedNum] = useState('')
+  const [text, setText] = useState('')
+  const [isError, setIsError] = useState(false)
+  const [multipleEditionResults, setMultipleEditionResults] = useState(null)
 
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      selectedBook: '',
-      selectedDiv: '',
-      selectedNum: '',
-      text: '',
-      isError: false,
-      multipleEditionResults: null
-    }
-  }
 
   // handleChange = event => {
   //   this.setState({ [event.target.name]: event.target.value });
   // }
 
-  handleSubmit = e => {
+  function handleSubmit(e) {
     e.preventDefault();
-    const input = this.state.text.trim().split(/\s+/);
+    const input = text.trim().split(/\s+/);
     const book = input[0];
     const division = input[1]; // this refers to page number for books that have no division
     const page = input[2]
@@ -84,18 +65,18 @@ class App extends Component {
       
       if (bothResults.every((elem) => elem === null)) {
         console.warn('results both null')
-        return this.setState({ isError: true })
+        return setIsError(true)
       }
           
       // filter out null results (when only one edition has that page)
       const results = bothResults.filter((result) => result !== null && result.length <= 2)
       console.log('results', results)
 
-      return this.setState({
-        text: input.join(' '),
-        isError: false,
-        multipleEditionResults: results
-      })
+      return (
+        setText(input.join(' ')),
+        setIsError(false),
+        setMultipleEditionResults(results)
+      )
     }
       console.log('only one')
 
@@ -105,72 +86,85 @@ class App extends Component {
       
       // number reference is out of range ('division' refers to page number for books that have no division)
       if (!ptsData[book][division]) {
-        this.setState({isError: true})
+        setIsError(true)
         return console.warn('please enter a correct page number reference')
       }
       
       // else all is good!
-      return this.setState({
-        selectedBook: book,
-        selectedDiv: '',
-        selectedNum: division,
-        text: input.join(' '),
-        isError: false,
-        multipleEditionResults: null
-      })
+      return (
+        setSelectedBook(book),
+        setSelectedDiv(''),
+        setSelectedNum(division),
+        setText(input.join(' ')),
+        setIsError(false),
+        setMultipleEditionResults(null)
+      )
     }
 
     // book has divisions
     console.log('has divisions')
     // general error: there arent 3 whitespace seperated values in textfield
     // if (page === undefined) {
-    //   this.setState({isError: true})
+    //   setIsError(true)
     //   return console.log('please enter correctly')
     // }
 
     // book reference is incorrect
     if (!ptsData[book]) {
-      this.setState({isError: true})
+      setIsError(true);
       return console.warn('please enter a correct book reference')
     }
     
     // division reference is incorrect
     if (!ptsData[book][division]) {
-      this.setState({isError: true})
+      setIsError(true);
       return console.warn('please enter a correct division reference')
     }
     
     // number reference is incorrect
     if (!ptsData[book][division][page]) {
-      this.setState({isError: true})
+      setIsError(true);
       return console.warn('please enter a correct page number reference')
     }
     
     // if all else is good
-    this.setState({
-      selectedBook: book,
-      selectedDiv: division,
-      selectedNum: page,
-      text: input.join(' '),
-      isError: false,
-      multipleEditionResults: null
-    })
+    return (
+      setSelectedBook(book),
+      setSelectedDiv(division),
+      setSelectedNum(page),
+      setText(input.join(' ')),
+      setIsError(false),
+      setMultipleEditionResults(null)
+    )
   }
 
-  renderSelection() {
+  function handleBookChange(e) {
+    setSelectedBook(e.target.value)
+    setSelectedDiv('')
+    setSelectedNum('')
+  }
+  
+  function handleDivChange(e) {
+    setSelectedDiv(e.target.value)
+    setSelectedNum('')
+  }
+
+  function handlePageChange(e) {
+    setSelectedNum(e.target.value)
+    setText('')
+    setMultipleEditionResults(null)
+  }
+
+  function renderSelection() {
     return <Card style={{ margin: '15px' }}>
       <h3>PTS Converter</h3>
       <p>Bitte die gesuchte PTS Stelle auswählen / Please select the PTS position you want to look up:</p>
       <FormControl>
         <InputLabel>Book</InputLabel>
         <Select
-          value={this.state.selectedBook}
+          value={selectedBook}
           style={{ minWidth: '80px' }}
-          onChange={(e) => this.setState({
-            selectedBook: e.target.value,
-            selectedDiv: '',
-            selectedNum: ''
-          })}
+          onChange={(e) => handleBookChange(e)}
         >
           <MenuItem value=''>
             <em>None</em>
@@ -184,20 +178,17 @@ class App extends Component {
       <FormControl>
         <InputLabel>Division</InputLabel>
         <Select
-          value={this.state.selectedDiv}
+          value={selectedDiv}
           style={{ minWidth: '80px' }}
-          onChange={(e) => this.setState({
-            selectedDiv: e.target.value,
-            selectedNum: ''
-          })}
-          disabled={!this.state.selectedBook}
+          onChange={(e) => handleDivChange(e)}
+          disabled={!selectedBook}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          { !isArray(ptsData[this.state.selectedBook]) && typeof ptsData[this.state.selectedBook] !== 'undefined'
+          { !isArray(ptsData[selectedBook]) && typeof ptsData[selectedBook] !== 'undefined'
             ? Object
-              .keys(ptsData[this.state.selectedBook])
+              .keys(ptsData[selectedBook])
               .map(k => <MenuItem value={k} key={k}>{k}</MenuItem>)
             : null
           }
@@ -206,23 +197,22 @@ class App extends Component {
       <FormControl>
         <InputLabel>Page</InputLabel>
         <Select
-          name='selectedNum'
           style={{ minWidth: '80px' }}
-          value={this.state.selectedNum}
-          onChange={(e) => this.setState({ selectedNum: e.target.value, text: '', multipleEditionResults: null })}
-          disabled={!isArray(ptsData[this.state.selectedBook]) && !isArray(gv(ptsData, `${this.state.selectedBook}.${this.state.selectedDiv}`, null))}
+          value={selectedNum}
+          onChange={(e) => handlePageChange(e)}
+          disabled={!isArray(ptsData[selectedBook]) && !isArray(gv(ptsData, `${selectedBook}.${selectedDiv}`, null))}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          { isArray(gv(ptsData, `${this.state.selectedBook}.${this.state.selectedDiv}`, null))
+          { isArray(gv(ptsData, `${selectedBook}.${selectedDiv}`, null))
             ? Object
-              .entries(gv(ptsData, `${this.state.selectedBook}.${this.state.selectedDiv}`, null))
+              .entries(gv(ptsData, `${selectedBook}.${selectedDiv}`, null))
               .filter(([k,v]) => v !== null)
               .map(([k,v]) => <MenuItem value={k} key={k}>{k}</MenuItem>)
-            : isArray(ptsData[this.state.selectedBook])
+            : isArray(ptsData[selectedBook])
               ? Object
-                .entries(gv(ptsData, `${this.state.selectedBook}`, null))
+                .entries(gv(ptsData, `${selectedBook}`, null))
                 .filter(([k,v]) => v !== null)
                 .map(([k,v]) => <MenuItem value={k} key={k}>{k}</MenuItem>)
               : null
@@ -230,18 +220,18 @@ class App extends Component {
         </Select>
       </FormControl>
 
-      <form onSubmit={this.handleSubmit}>
-      <FormControl variant="filled" error={this.state.isError}>
+      <form onSubmit={handleSubmit}>
+      <FormControl variant="filled" error={isError}>
           <InputLabel htmlFor="search">Search</InputLabel>
           <FilledInput
             id="search"
             placeholder="ie. D ii 14"
-            value={this.state.text}
-            onChange={(e) => this.setState({ text: e.target.value })}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
             aria-describedby="search-text"
           />
 
-          <FormHelperText id="search-text">{this.state.isError && 'Error'}</FormHelperText>
+          <FormHelperText id="search-text">{isError && 'Error'}</FormHelperText>
         </FormControl>
       </form>
       
@@ -251,9 +241,9 @@ class App extends Component {
     </Card>
   }
 
-  renderResults() {
-    const finalResult = this.state.multipleEditionResults ? this.state.multipleEditionResults : gv(ptsData, `${this.state.selectedBook}.${this.state.selectedDiv}.${this.state.selectedNum}`, null) ||
-      gv(ptsData, `${this.state.selectedBook}.${this.state.selectedNum}`, null)
+  function renderResults() {
+    const finalResult = multipleEditionResults ? multipleEditionResults : gv(ptsData, `${selectedBook}.${selectedDiv}.${selectedNum}`, null) ||
+      gv(ptsData, `${selectedBook}.${selectedNum}`, null)
 
       console.log('final result', finalResult)
 
@@ -268,17 +258,10 @@ class App extends Component {
       : <ResultCard data={finalResult.flat()} />
   }
 
-  render() {
-    return (
-      <div className="App">
-        { this.renderSelection() }
-        { this.renderResults() }
-
-        <Card style={{margin: '15px'}}>
-        </Card>
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      { renderSelection() }
+      { renderResults() }
+    </div>
+  );
 }
-
-export default App;
