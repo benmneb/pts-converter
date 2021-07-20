@@ -6,7 +6,16 @@ export default class Footer extends Component {
   render() {
     return (
       <footer>
-        <Typography color="textSecondary">CC0 benmneb</Typography>
+        <Typography color="textSecondary">
+          <a 
+            className="footerLink"
+            href="https://github.com/benmneb"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            benmneb
+          </a>
+        </Typography>
       </footer>
     )
   }
