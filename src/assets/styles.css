@@ -24,6 +24,11 @@ footer {
   margin-top: 56px
 }
 
+.submitBox {
+  margin-bottom: 25.15px;
+  display: flex;
+}
+
 .appBar {
   align-items: center;
 }

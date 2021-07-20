@@ -197,9 +197,11 @@ export default class Search extends Component {
             {isError && text && errorMessage}
           </FormHelperText>
         </FormControl>
-        <Button type="submit" disabled={text === ''}>
-          Convert
-        </Button>
+        <div className="submitBox">
+          <Button type="submit" disabled={text === ''}>
+            Convert
+          </Button>
+        </div>
       </form>
     )
   }
