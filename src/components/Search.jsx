@@ -12,22 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import { get, isArray } from 'lodash'
 
 import ptsData from '../data/pts_lookup.json'
-
-function hasMoreThanOne(array, what) {
-  let indexes = [];
-  for (let i = 0; i < array.length; i++) {
-      if (array[i] === what) {
-          indexes.push(i)
-      }
-  }
-  return indexes;
-}
-
-function toSentenceCase(str) {
-  return str
-    .toLowerCase()
-    .replace(/\s+([a-z])|^[a-z]/g, (s) => s.toUpperCase());
- }
+import { hasMoreThanOne, toSentenceCase } from '../utils'
 
 export default class Search extends Component {  
   handleSubmit = e => {
