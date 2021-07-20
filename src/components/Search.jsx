@@ -37,7 +37,7 @@ export default class Search extends Component {
 
     const input = text.trim().split(/\s+/);
     const book = toSentenceCase(input[0]);
-    const division = input[1].toLowerCase(); // this refers to page number for books that have no division
+    const division = input[1] && input[1].toLowerCase(); // this refers to page number for books that have no division
     const page = input[2]
 
     // check if book has multiple editions and return all of them that apply
@@ -59,7 +59,10 @@ export default class Search extends Component {
       
       if (bothResults.every((elem) => elem === null)) {
         console.warn('results both null')
-        return handleChange({ isError: true })
+        return handleChange({ 
+          isError: true,
+          errorMessage: 'Something went wrong. Please try again'
+        })
       }
           
       // filter out null results (when only one edition has that page)
@@ -78,9 +81,12 @@ export default class Search extends Component {
     if (isArray(ptsData[book]) && typeof ptsData[book] !== 'undefined') {
       console.log('this book has no divisions')
       
-      // number reference is out of range ('division' refers to page number for books that have no division)
+      // page number reference is out of range ('division' refers to page number for books that have no division)
       if (!ptsData[book][division]) {
-        handleChange({isError: true})
+        handleChange({ 
+          isError: true,
+          errorMessage: 'Please enter a correct page number'
+        })
         return console.warn('please enter a correct page number reference')
       }
       
@@ -97,27 +103,31 @@ export default class Search extends Component {
 
     // book has divisions
     console.log('has divisions')
-    // general error: there arent 3 whitespace seperated values in textfield
-    // if (page === undefined) {
-    //   handleChange({isError: true})
-    //   return console.log('please enter correctly')
-    // }
 
     // book reference is incorrect
     if (!ptsData[book]) {
-      handleChange({isError: true})
+      handleChange({ 
+        isError: true,
+        errorMessage: 'Please enter a valid book reference'
+      })
       return console.warn('please enter a correct book reference')
     }
     
     // division reference is incorrect
     if (!ptsData[book][division]) {
-      handleChange({isError: true})
+      handleChange({ 
+        isError: true,
+        errorMessage: 'Please enter a valid book division'
+      })
       return console.warn('please enter a correct division reference')
     }
     
     // number reference is incorrect
     if (!ptsData[book][division][page]) {
-      handleChange({isError: true})
+      handleChange({ 
+        isError: true,
+        errorMessage: 'Please enter a valid page number'
+      })
       return console.warn('please enter a correct page number reference')
     }
     
@@ -133,7 +143,7 @@ export default class Search extends Component {
   }
 
   render() {
-    const { text, isError, handleChange } = this.props;
+    const { text, isError, errorMessage, handleChange } = this.props;
 
     return (
       <form onSubmit={this.handleSubmit} className="form">
@@ -146,12 +156,12 @@ export default class Search extends Component {
             id="search"
             placeholder="ie. D ii 14"
             value={text}
-            onChange={(e) => handleChange({ text: e.target.value })}
+            onChange={(e) => handleChange({ text: e.target.value, isError: false })}
             aria-describedby="search-text"
             endAdornment={
               <InputAdornment position="end">
                 <IconButton 
-                  onClick={() => handleChange({ text: '' })} 
+                  onClick={() => handleChange({ text: '', isError: false })} 
                   disabled={text === ''}
                 >
                   <Icon>close</Icon>
@@ -160,7 +170,7 @@ export default class Search extends Component {
             }
           />
           <FormHelperText id="search-text">
-            {isError && text && 'Error'}
+            {isError && text && errorMessage}
           </FormHelperText>
         </FormControl>
         <Button type="submit" disabled={text === ''}>

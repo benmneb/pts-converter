@@ -14,7 +14,8 @@ export default class Main extends Component {
       division, 
       page, 
       text, 
-      isError, 
+      isError,
+      errorMessage,
       handleChangeSelect,
       handleChangeSearch  
     } = this.props;
@@ -23,11 +24,16 @@ export default class Main extends Component {
       <Card className="tabsWrapper" component="main">
         {tabValue === 0 && (
           <TabContainer>
-            <Typography variant="h4" component="h2" gutterBottom>Search</Typography>
-            <Typography paragraph>Please type or copy & paste the PTS reference you want to convert.</Typography>
+            <Typography variant="h4" component="h2" gutterBottom>
+              Search
+            </Typography>
+            <Typography paragraph>
+              Please type or copy & paste the PTS reference you want to convert.
+            </Typography>
             <Search 
               text={text}
               isError={isError}
+              errorMessage={errorMessage}
               handleChange={handleChangeSearch}
             />
             <Results 
@@ -40,8 +46,12 @@ export default class Main extends Component {
         )}
         {tabValue === 1 && (
           <TabContainer>
-            <Typography variant="h4" component="h2" gutterBottom>Select</Typography>
-            <Typography paragraph>Please select the PTS reference you want to convert.</Typography>
+            <Typography variant="h4" component="h2" gutterBottom>
+              Select
+            </Typography>
+            <Typography paragraph>
+              Please select the PTS reference you want to convert.
+            </Typography>
             <Select 
               book={book} 
               division={division} 
