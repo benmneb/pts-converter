@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 
-import {
-  Card,
-  CardActions,
-  Icon,
-  Button,
-  CardHeader,
-} from '@material-ui/core'
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
+import Icon from '@material-ui/core/Icon'
+import Button from '@material-ui/core/Button'
+import CardHeader from '@material-ui/core/CardHeader'
 
 import '../assets/styles.css'
 
