@@ -188,7 +188,7 @@ export default class Search extends Component {
       <form onSubmit={this.handleSubmit} className="form">
         <FormControl 
           variant="filled"
-          error={this.state.isError && this.state.text.length}
+          error={this.state.isError && Boolean(this.state.text.length)}
         >
           <InputLabel htmlFor="search">Search</InputLabel>
           <FilledInput
