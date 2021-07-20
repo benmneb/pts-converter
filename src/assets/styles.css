@@ -33,7 +33,11 @@ footer {
 }
 
 .tabs {
-  max-width: 600px
+  width: 480px;
+}
+
+.tabs button {
+  border-radius: 16px 16px 0 0;
 }
 
 .tabsWrapper {
@@ -94,8 +98,13 @@ footer {
 @media (max-width: 600px) {
   main.tabsWrapper {
     margin: 0;
-    border-radius: 0;
+    border-radius: 0 0 16px 16px;
     box-shadow: none;
+  }
+
+  .tabs {
+    width: 100%;
+    max-width: 480px;
   }
 
   footer {
