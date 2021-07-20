@@ -39,20 +39,36 @@ export default class Search extends Component {
           get(indexesData, `${ed}.${division}`, null))
           
       console.log('ptsData', ptsData)
-      console.log('indexesdata', indexesData)
+      console.log('indexesData', indexesData)
       console.log('bothResults', bothResults)
       
       if (bothResults.every((elem) => elem === null)) {
         console.warn('results both null')
         return handleChange({ 
           isError: true,
-          errorMessage: 'Something went wrong. Please try again'
+          errorMessage: 'Please enter a valid book division',
+          selectedBook: '',
+          selectedDiv: '',
+          selectedNum: '',
+          multipleEditionResults: null
         })
       }
-          
+      
       // filter out null results (when only one edition has that page)
       const results = bothResults.filter((result) => result !== null && result.length <= 2)
       console.log('results', results)
+      
+      if (!results.length) {
+        console.warn('results array empty, probably due to out of range page number')
+        return handleChange({ 
+          isError: true,
+          errorMessage: 'Please enter a valid page number',
+          selectedBook: '',
+          selectedDiv: '',
+          selectedNum: '',
+          multipleEditionResults: null
+        })
+      }
 
       return handleChange({
         text: input.join(' '),
@@ -60,7 +76,7 @@ export default class Search extends Component {
         multipleEditionResults: results
       })
     }
-      console.log('only one')
+    console.log('only one')
 
     // check if book has no divisions
     if (isArray(ptsData[book]) && typeof ptsData[book] !== 'undefined') {
@@ -68,11 +84,15 @@ export default class Search extends Component {
       
       // page number reference is out of range ('division' refers to page number for books that have no division)
       if (!ptsData[book][division]) {
-        handleChange({ 
+        console.warn('please enter a correct page number reference')
+        return handleChange({ 
           isError: true,
-          errorMessage: 'Please enter a correct page number'
+          errorMessage: 'Please enter a correct page number',
+          selectedBook: '',
+          selectedDiv: '',
+          selectedNum: '',
+          multipleEditionResults: null
         })
-        return console.warn('please enter a correct page number reference')
       }
       
       // else all is good!
@@ -91,29 +111,41 @@ export default class Search extends Component {
 
     // book reference is incorrect
     if (!ptsData[book]) {
-      handleChange({ 
+      console.warn('please enter a correct book reference')
+      return handleChange({ 
         isError: true,
-        errorMessage: 'Please enter a valid book reference'
+        errorMessage: 'Please enter a valid book reference',
+        selectedBook: '',
+        selectedDiv: '',
+        selectedNum: '',
+        multipleEditionResults: null
       })
-      return console.warn('please enter a correct book reference')
     }
     
     // division reference is incorrect
     if (!ptsData[book][division]) {
-      handleChange({ 
+      console.warn('please enter a correct division reference')
+      return handleChange({ 
         isError: true,
-        errorMessage: 'Please enter a valid book division'
+        errorMessage: 'Please enter a valid book division',
+        selectedBook: '',
+        selectedDiv: '',
+        selectedNum: '',
+        multipleEditionResults: null
       })
-      return console.warn('please enter a correct division reference')
     }
     
     // number reference is incorrect
     if (!ptsData[book][division][page]) {
-      handleChange({ 
+      console.warn('please enter a correct page number reference');
+      return handleChange({ 
         isError: true,
-        errorMessage: 'Please enter a valid page number'
+        errorMessage: 'Please enter a valid page number',
+        selectedBook: '',
+        selectedDiv: '',
+        selectedNum: '',
+        multipleEditionResults: null
       })
-      return console.warn('please enter a correct page number reference')
     }
     
     // if all else is good
