@@ -25,10 +25,7 @@ export default class Main extends Component {
       <Card className="tabsWrapper" component="main">
         {tabValue === 0 && (
           <TabContainer>
-            <Typography variant="h4" component="h2" gutterBottom>
-              Search
-            </Typography>
-            <Typography paragraph>
+            <Typography paragraph component="h2">
               Please type or copy & paste the PTS reference you want to convert.
             </Typography>
             <Search 
@@ -45,10 +42,7 @@ export default class Main extends Component {
         )}
         {tabValue === 1 && (
           <TabContainer>
-            <Typography variant="h4" component="h2" gutterBottom>
-              Select
-            </Typography>
-            <Typography paragraph>
+            <Typography paragraph component="h2">
               Please select the PTS reference you want to convert.
             </Typography>
             <Select 
