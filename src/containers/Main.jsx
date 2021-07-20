@@ -8,7 +8,6 @@ import ptsData from '../data/pts_lookup.json'
 
 export default class Main extends Component {
   render() {
-    console.log('MAIN')
     const { 
       tabValue, 
       multiEdRes, 
