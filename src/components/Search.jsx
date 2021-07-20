@@ -14,20 +14,30 @@ import { get, isArray } from 'lodash'
 import ptsData from '../data/pts_lookup.json'
 import { hasMoreThanOne, toSentenceCase } from '../utils'
 
-export default class Search extends Component {  
-  handleSubmit = e => {
-    const { text, handleChange } = this.props;
+export default class Search extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      text: '',
+      isError: false,
+      errorMessage: null
+    }
+  }
+  
+  handleSubmit = (e) => {
+    const { handleChange, resetInputStates } = this.props;
 
     e.preventDefault();
 
-    const input = text.trim().split(/\s+/);
+    const input = this.state.text.trim().split(/\s+/);
     const book = toSentenceCase(input[0]);
     const division = input[1] && input[1].toLowerCase(); // this refers to page number for books that have no division
     const page = input[2]
 
-    // check if book has multiple editions and return all of them that apply
-    if (Object.keys(ptsData).filter((eachBook) => eachBook.includes(`${book} (`)).length > 0) {
-      console.log('more than one')
+    // if book has multiple editions
+    if (Object.keys(ptsData).filter((eachBook) => eachBook.includes(`${book} `)).length > 0) {
+      console.log('more than one edition')
       // get indexes of all book editions
       const indexes = hasMoreThanOne(Object.keys(ptsData).map(key => key.split(/\s+/)[0]), book);
       console.log('indexes', indexes)
@@ -42,66 +52,77 @@ export default class Search extends Component {
       console.log('indexesData', indexesData)
       console.log('bothResults', bothResults)
       
+      // account for books with and without divisions
       if (bothResults.every((elem) => elem === null)) {
         console.warn('results both null')
-        return handleChange({ 
+
+        // check if has no divisions
+        if (Object.values(indexesData).every((child) => child.length > 20)) {
+          console.warn('long indexData children lengths, probably no divisions')
+          this.setState({
+            isError: true,
+            errorMessage: 'Please enter a valid page number',
+          })
+          return resetInputStates();
+        }
+
+        // must have divisions
+        this.setState({
           isError: true,
           errorMessage: 'Please enter a valid book division',
-          selectedBook: '',
-          selectedDiv: '',
-          selectedNum: '',
-          multipleEditionResults: null
         })
+        return resetInputStates();
       }
       
-      // filter out null results (when only one edition has that page)
+      // filter out null results (when only one edition has the searched page)
       const results = bothResults.filter((result) => result !== null && result.length <= 2)
       console.log('results', results)
       
+      // handle (what is probably a) page number error
       if (!results.length) {
         console.warn('results array empty, probably due to out of range page number')
-        return handleChange({ 
+        this.setState({
           isError: true,
-          errorMessage: 'Please enter a valid page number',
-          selectedBook: '',
-          selectedDiv: '',
-          selectedNum: '',
-          multipleEditionResults: null
+          errorMessage: 'Please enter a valid page number',  
         })
+        return resetInputStates();
       }
 
-      return handleChange({
+      this.setState({
         text: input.join(' '),
-        isError: false,
+        isError: false,    
+      })
+      return handleChange({
         multipleEditionResults: results
       })
     }
-    console.log('only one')
+
+    // has only one edition
+    console.log('only one edition')
 
     // check if book has no divisions
     if (isArray(ptsData[book]) && typeof ptsData[book] !== 'undefined') {
       console.log('this book has no divisions')
       
-      // page number reference is out of range ('division' refers to page number for books that have no division)
+      // page number reference is out of range (the const 'division' refers to page number for books that have no division)
       if (!ptsData[book][division]) {
         console.warn('please enter a correct page number reference')
-        return handleChange({ 
+        this.setState({
           isError: true,
-          errorMessage: 'Please enter a correct page number',
-          selectedBook: '',
-          selectedDiv: '',
-          selectedNum: '',
-          multipleEditionResults: null
+          errorMessage: 'Please enter a correct page number',  
         })
+        return resetInputStates();
       }
       
       // else all is good!
+      this.setState({
+        text: input.join(' '),
+        isError: false,    
+      })
       return handleChange({
         selectedBook: book,
         selectedDiv: '',
         selectedNum: division,
-        text: input.join(' '),
-        isError: false,
         multipleEditionResults: null
       })
     }
@@ -112,68 +133,69 @@ export default class Search extends Component {
     // book reference is incorrect
     if (!ptsData[book]) {
       console.warn('please enter a correct book reference')
-      return handleChange({ 
+      this.setState({
         isError: true,
-        errorMessage: 'Please enter a valid book reference',
-        selectedBook: '',
-        selectedDiv: '',
-        selectedNum: '',
-        multipleEditionResults: null
+        errorMessage: 'Please enter a valid book reference',    
       })
+      return resetInputStates();
     }
     
     // division reference is incorrect
     if (!ptsData[book][division]) {
       console.warn('please enter a correct division reference')
-      return handleChange({ 
+      this.setState({
         isError: true,
-        errorMessage: 'Please enter a valid book division',
-        selectedBook: '',
-        selectedDiv: '',
-        selectedNum: '',
-        multipleEditionResults: null
+        errorMessage: 'Please enter a valid book division',    
       })
+      return resetInputStates();
     }
     
     // number reference is incorrect
     if (!ptsData[book][division][page]) {
       console.warn('please enter a correct page number reference');
-      return handleChange({ 
+      this.setState({
         isError: true,
-        errorMessage: 'Please enter a valid page number',
-        selectedBook: '',
-        selectedDiv: '',
-        selectedNum: '',
-        multipleEditionResults: null
+        errorMessage: 'Please enter a valid page number',    
       })
+      return resetInputStates();
     }
     
-    // if all else is good
+    // else all is good!
+    this.setState({
+      text: input.join(' '),
+      isError: false,      
+    })
     handleChange({
       selectedBook: book,
       selectedDiv: division,
       selectedNum: page,
-      text: input.join(' '),
-      isError: false,
       multipleEditionResults: null
     })
   }
 
-  render() {
-    const { text, isError, errorMessage, handleChange } = this.props;
+  handleCloseIconClick = () => {
+    const { resetInputStates } = this.props;
 
+    this.setState({ 
+      text: '',
+      isError: false,
+    })
+    resetInputStates();
+  }
+
+  render() {
     return (
       <form onSubmit={this.handleSubmit} className="form">
         <FormControl 
           variant="filled"
-          error={isError && text.length}
+          error={this.state.isError && this.state.text.length}
         >
           <InputLabel htmlFor="search">Search</InputLabel>
           <FilledInput
             id="search"
             placeholder="ie. D ii 14"
-            value={text}
-            onChange={(e) => handleChange({ 
+            value={this.state.text}
+            onChange={(e) => this.setState({ 
               text: e.target.value, 
               isError: false 
             })}
@@ -181,12 +203,8 @@ export default class Search extends Component {
             endAdornment={
               <InputAdornment position="end">
                 <IconButton 
-                  onClick={() => handleChange({ 
-                    text: '',
-                    isError: false,
-                    multipleEditionResults: null
-                  })} 
-                  disabled={text === ''}
+                  onClick={this.handleCloseIconClick} 
+                  disabled={this.state.text === ''}
                 >
                   <Icon>close</Icon>
                 </IconButton>
@@ -194,11 +212,11 @@ export default class Search extends Component {
             }
           />
           <FormHelperText id="search-text">
-            {isError && text && errorMessage}
+            {this.state.isError && this.state.text && this.state.errorMessage}
           </FormHelperText>
         </FormControl>
         <div className="submitBox">
-          <Button type="submit" disabled={text === ''}>
+          <Button type="submit" disabled={this.state.text === ''}>
             Convert
           </Button>
         </div>

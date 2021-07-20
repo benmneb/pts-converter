@@ -15,9 +15,6 @@ export default class App extends Component {
       selectedBook: '',
       selectedDiv: '',
       selectedNum: '',
-      text: '',
-      isError: false,
-      errorMessage: null,
       multipleEditionResults: null,
       tabValue: 0
     }
@@ -25,6 +22,15 @@ export default class App extends Component {
 
   handleChangeState = (changes) => {
     this.setState({ ...changes });
+  }
+
+  handleResetInputValues = () => {
+    this.setState({
+      selectedBook: '',
+      selectedDiv: '',
+      selectedNum: '',
+      multipleEditionResults: null
+    })
   }
 
   render() {
@@ -42,11 +48,9 @@ export default class App extends Component {
           book={this.state.selectedBook}
           division={this.state.selectedDiv}
           page={this.state.selectedNum}
-          text={this.state.text}
-          isError={this.state.isError}
-          errorMessage={this.state.errorMessage}
           handleChangeSelect={this.handleChangeState}
           handleChangeSearch={this.handleChangeState}
+          handleReset={this.handleResetInputValues}
           />
         <Footer />
       </MuiThemeProvider>

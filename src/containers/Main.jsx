@@ -7,17 +7,16 @@ import { TabContainer, Results, Search, Select } from '../components'
 
 export default class Main extends Component {
   render() {
+    console.log('MAIN')
     const { 
       tabValue, 
       multiEdRes, 
       book, 
       division, 
       page, 
-      text, 
-      isError,
-      errorMessage,
       handleChangeSelect,
-      handleChangeSearch  
+      handleChangeSearch,
+      handleReset  
     } = this.props;
 
     return (
@@ -31,10 +30,8 @@ export default class Main extends Component {
               Please type or copy & paste the PTS reference you want to convert.
             </Typography>
             <Search 
-              text={text}
-              isError={isError}
-              errorMessage={errorMessage}
               handleChange={handleChangeSearch}
+              resetInputStates={handleReset}
             />
             <Results 
               multiEdRes={multiEdRes} 
