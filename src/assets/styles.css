@@ -91,6 +91,18 @@ footer {
     box-shadow: inset 0 -1.3rem 0 #ff9800;
 }
 
+.footerLink {
+  text-decoration: none;
+  color: inherit;
+  box-shadow: none;
+  transition: all 300ms ease-in-out;
+}
+
+.footerLink:hover {
+    color: #212121;
+    box-shadow: inset 0 -1.3rem 0 #ff9800;
+}
+
 .buttonIcon {
   margin-left: 8px;
 }
