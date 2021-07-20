@@ -7,7 +7,6 @@ export const theme = createMuiTheme({
     primary: orange
   },
   typography: {
-    fontSize: 20,
     fontFamily: ['Inter', 'sans-serif'].join(','),
     button: {
       textTransform: 'none',
