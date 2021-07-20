@@ -73,6 +73,12 @@ export default class Main extends Component {
             <p>
               The select tab allows for manual entering of book reference, division and page number.
             </p>
+            <p>
+              For comments and corrections, please {' '}
+              <a href="https://github.com/benmneb/pts-converter" className="link" target="_blank" rel="noopener noreferrer">
+              file an issue or make a pull request on GitHub
+              </a>.
+            </p>
             <hr />
             <p>
               This project started out as a utility function to automatically convert the PTS references in my project {' '}  
@@ -92,11 +98,25 @@ export default class Main extends Component {
             </p>
             <hr />
             <p>
-              For comments and corrections, please {' '}
-              <a href="https://github.com/benmneb/pts-converter" className="link" target="_blank" rel="noopener noreferrer">
-              file an issue or make a pull request on GitHub
+              This work is dedicated to the public domain via {' '}
+              <a
+                className="link" 
+                rel="license noopener noreferrer"
+                href="http://creativecommons.org/publicdomain/zero/1.0/"
+                target="_blank"
+              >
+                CC0
               </a>.
+              You are free to copy or modify it as you see fit.
+              Attribution is appreciated but not legally required.
             </p>
+            <a 
+              rel="license noopener noreferrer"
+              href="http://creativecommons.org/publicdomain/zero/1.0/"
+              target="_blank"
+            >
+              <img src="https://licensebuttons.net/p/zero/1.0/88x31.png" alt="CC0"/>
+            </a>
             </Typography>
           </TabContainer>
         )}
