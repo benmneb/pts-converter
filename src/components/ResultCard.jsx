@@ -18,6 +18,7 @@ export default class ResultCard extends Component {
   
     const bookId = suttaId.match(/[^0-9]+/gi)[0];
     const translator = ['snp'].includes(bookId) ? 'mills' : 'sujato';
+    const referral = window.location.origin.split('https://')[1]
     
     return (
     <Card variant="outlined" elevation={0} className="resultCard">
@@ -26,7 +27,7 @@ export default class ResultCard extends Component {
         <CardActions className="resultCardActions">
           <Button 
             variant="outlined"
-            href={`https://suttacentral.net/${suttaId}/pli/ms#${ptsRef}`}
+            href={`https://suttacentral.net/${suttaId}/pli/ms#${ptsRef}?ref=${referral}`}
             target='_blank' 
             rel="noopener noreferrer"
           >
@@ -35,7 +36,7 @@ export default class ResultCard extends Component {
           </Button>
           { bookId && ['mn', 'sn', 'an', 'dn', 'dhp', 'iti', 'snp'].includes(bookId)
             ? <Button variant="outlined"
-                href={`https://suttacentral.net/${suttaId}/en/${translator}#${ptsRef}`}
+                href={`https://suttacentral.net/${suttaId}/en/${translator}#${ptsRef}?ref=${referral}`}
                 target='_blank' 
                 rel="noopener noreferrer"
               >
