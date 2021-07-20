@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 
 import { TabContainer, Results, Search, Select } from '../components'
+import ptsData from '../data/pts_lookup.json'
 
 export default class Main extends Component {
   render() {
@@ -18,6 +19,8 @@ export default class Main extends Component {
       handleChangeSearch,
       handleReset  
     } = this.props;
+
+    const totalBooks = Object.keys(ptsData).length;
 
     return (
       <Card className="tabsWrapper" component="main">
@@ -65,8 +68,43 @@ export default class Main extends Component {
         )}
         {tabValue === 2 && (
           <TabContainer>
-            <Typography><i>Hinweis:</i> Wegen der guten Aufbereitung der Daten von SuttaCentral sollte es möglich sein, dass beim Öffnen der Links an den ersten Absatz der richtigen Stelle im Text gesprungen wird. Es kann sein, dass eine PTS Stelle in den nächsten Text überläuft. Die Markierung ist nur der Anfang der Stelle. Durch Nachschlagen der nächst höheren PTS Nummer kann herausgefunden werden, wo die vorherige Stelle endet. "Network Error" kann bedeuten, dass der Link nicht existiert (es gibt z.B. nicht immer Übersetzungen von Bodhi). Abkürzungen, die mit Großbuchstaben anfangen, können <a href='http://www.palitext.com/subpages/PTS_Abbreviations.pdf' target='_blank' rel="noopener noreferrer">hier</a> nachgeschlagen werden. Fehler etc. bitte an <a href='mailto:ticao@posteo.de'>ticao@posteo.de</a></Typography>
-            <Typography><i>Note:</i> Because of the data quality of SuttaCentral it should be possible to jump to the first paragraph of the correct position when opening a link. There may occur an "overflow" into the next text, since the marked paragraph only references where the PTS pos. begins. To find out the end position simply lookup the next higher number. "Network Error" most often means that the link is invalid. This happens i.e. because there are not always translations by Bodhi if linked to from here. Abbreviations starting with an uppercase letter can be looked up <a href='http://www.palitext.com/subpages/PTS_Abbreviations.pdf' target='_blank' rel="noopener noreferrer">here</a>. Please send error reports etc. to <a href='mailto:ticao@posteo.de'>ticao@posteo.de</a></Typography>
+            <Typography component="article">
+            <p>
+              The search tab is a case-insensitive PTS lookup that references {totalBooks} different books.
+              It is perfect for copy and pasting or quickly typing Pali Text Society references and reading the sutta online.
+            </p>
+            <p>
+              If multiple results appear, it's because the book you searched for has multiple editions. 
+              When available, the first edition's reference is always displayed first.
+            </p>
+            <p>
+              The select tab allows for manual entering of book reference, division and page number.
+            </p>
+            <hr />
+            <p>
+              This project started out as a utility function to automatically convert the PTS references in my project {' '}  
+              <a href="https://github.com/benmneb/meditation-subjects" className="link" target="_blank" rel="noopener noreferrer">
+              The 40 Buddhist Meditation Subjects
+              </a> which is a digitised version of the practical instructions from the Visuddhimagga.
+            </p>
+            <p>
+              This PTS reference converter was built on top of the great open source work done by {' '}
+              <a href="https://gitlab.com/olastor/pts-converter/" className="link" target="_blank" rel="noopener noreferrer">
+                olaster
+              </a>, 
+              which was built on top of the priceless open source work going on at {' '} 
+              <a href="https://suttacentral.net" className="link" target="_blank" rel="noopener noreferrer">
+                Sutta Central
+              </a>.
+            </p>
+            <hr />
+            <p>
+              For comments and corrections, please {' '}
+              <a href="https://github.com/benmneb/pts-converter" className="link" target="_blank" rel="noopener noreferrer">
+              file an issue or make a pull request on GitHub
+              </a>.
+            </p>
+            </Typography>
           </TabContainer>
         )}
       </Card>
