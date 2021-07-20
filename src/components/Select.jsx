@@ -5,7 +5,7 @@ import MuiSelect from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 
-import { get as gv, isArray } from 'lodash'
+import { get, isArray } from 'lodash'
 
 import ptsData from '../data/pts_lookup.json'
 
@@ -71,20 +71,20 @@ export default class Select extends Component {
               multipleEditionResults: null 
             })}
             disabled={
-              !isArray(ptsData[book]) && !isArray(gv(ptsData, `${book}.${division}`, null))
+              !isArray(ptsData[book]) && !isArray(get(ptsData, `${book}.${division}`, null))
             }
           >
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            { isArray(gv(ptsData, `${book}.${division}`, null))
+            { isArray(get(ptsData, `${book}.${division}`, null))
               ? Object
-                .entries(gv(ptsData, `${book}.${division}`, null))
+                .entries(get(ptsData, `${book}.${division}`, null))
                 .filter(([k,v]) => v !== null)
                 .map(([k,v]) => <MenuItem value={k} key={k}>{k}</MenuItem>)
               : isArray(ptsData[book])
                 ? Object
-                  .entries(gv(ptsData, `${book}`, null))
+                  .entries(get(ptsData, `${book}`, null))
                   .filter(([k,v]) => v !== null)
                   .map(([k,v]) => <MenuItem value={k} key={k}>{k}</MenuItem>)
                 : null

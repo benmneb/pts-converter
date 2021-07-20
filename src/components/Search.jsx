@@ -9,7 +9,7 @@ import Icon from '@material-ui/core/Icon'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 
-import { get as gv, isArray } from 'lodash'
+import { get, isArray } from 'lodash'
 
 import ptsData from '../data/pts_lookup.json'
 
@@ -50,8 +50,8 @@ export default class Search extends Component {
       const indexesData = {...indexes.map(index => Object.values(ptsData)[index])};
       // get the required info from this new object instead of whole ptsData
       const bothResults = Object.keys(indexesData).map((ed) => 
-        gv(indexesData, `${ed}.${division}.${page}`, null) || 
-          gv(indexesData, `${ed}.${division}`, null))
+        get(indexesData, `${ed}.${division}.${page}`, null) || 
+          get(indexesData, `${ed}.${division}`, null))
           
       console.log('ptsData', ptsData)
       console.log('indexesdata', indexesData)

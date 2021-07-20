@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { get as gv } from 'lodash'
+import { get } from 'lodash'
 
 import ptsData from '../data/pts_lookup.json'
 import { ResultCard } from '../components'
@@ -10,8 +10,8 @@ export default class Results extends Component {
     const { multiEdRes, book, division, page } = this.props;
 
     const finalResult = 
-      multiEdRes ? multiEdRes : gv(ptsData, `${book}.${division}.${page}`, null) ||
-      gv(ptsData, `${book}.${page}`, null)
+      multiEdRes ? multiEdRes : get(ptsData, `${book}.${division}.${page}`, null) ||
+      get(ptsData, `${book}.${page}`, null)
 
     console.log('final result', finalResult)
 
