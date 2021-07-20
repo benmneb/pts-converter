@@ -20,7 +20,6 @@ export default class Select extends Component {
           <MuiSelect
             name="selectedBook"
             value={book}
-            style={{ minWidth: 8 * 16 }}
             onChange={(e) => handleChange({
               selectedBook: e.target.value,
               selectedDiv: '',
@@ -41,7 +40,6 @@ export default class Select extends Component {
           <MuiSelect
             name="selectedDiv"
             value={division}
-            style={{ minWidth: 8 * 16 }}
             onChange={(e) => handleChange({
               selectedDiv: e.target.value,
               selectedNum: ''
@@ -63,7 +61,6 @@ export default class Select extends Component {
           <InputLabel>Page</InputLabel>
           <MuiSelect
             name='selectedNum'
-            style={{ minWidth: 8 * 16 }}
             value={page}
             onChange={(e) => handleChange({ 
               selectedNum: e.target.value, 

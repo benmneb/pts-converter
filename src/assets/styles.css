@@ -14,6 +14,10 @@ header {
   width: 100%
 }
 
+footer {
+  margin: 0 0 24px 0;
+}
+
 .form {
   display: flex;
   gap: 16px;
@@ -42,11 +46,13 @@ header {
   display: flex;
   justify-content: space-evenly;
   margin-top: 56px;
-  margin-bottom: 32px
+  margin-bottom: 32px;
+  gap: 8px;
 }
 
-footer {
-  margin: 0;
+.selection > * {
+  width: 33%;
+  max-width: 120px;
 }
 
 .resultCard {
