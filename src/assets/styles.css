@@ -1,0 +1,74 @@
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+header {
+  background-color: #212121; 
+  padding: 32px; 
+  z-index: 10000; 
+  width: 100%
+}
+
+.form {
+  display: flex;
+  gap: 16px;
+  margin-top: 56px
+}
+
+.appBar {
+  align-items: center;
+}
+
+.tabs {
+  max-width: 600px
+}
+
+.tabsWrapper {
+  width: 100%;
+  max-width: 600px;
+  margin: 24px
+}
+
+.tabContainer {
+  padding: 24px
+}
+
+.selection {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 56px;
+  margin-bottom: 32px
+}
+
+footer {
+  margin: 0;
+}
+
+.resultCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resultCardActions {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%
+}
+ 
+@media (max-width: 600px) {
+  main.tabsWrapper {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  footer {
+    margin: 24px;
+  }
+}
