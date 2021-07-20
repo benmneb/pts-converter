@@ -16,32 +16,31 @@ export default class ResultCard extends Component {
     console.log('suttaId', suttaId)
     console.log('ptsRef', ptsRef)
   
-    const bookId = suttaId.match(/[^0-9]+/gi);
-
+    const bookId = suttaId.match(/[^0-9]+/gi)[0];
+    const translator = ['snp'].includes(bookId) ? 'mills' : 'sujato';
+    
     return (
     <Card variant="outlined" elevation={0} className="resultCard">
       <CardHeader title={ suttaId.toUpperCase() } subheader="Select a language to read this sutta:">
       </CardHeader>
         <CardActions className="resultCardActions">
-          <Button variant="outlined" href={`https://suttacentral.net/${suttaId}/pli/ms#${ptsRef}`} target='_blank' rel="noopener noreferrer">
-              Pali 
-            <Icon fontSize="small">open_in_new</Icon>
+          <Button 
+            variant="outlined"
+            href={`https://suttacentral.net/${suttaId}/pli/ms#${ptsRef}`}
+            target='_blank' 
+            rel="noopener noreferrer"
+          >
+            Pali
+            <Icon fontSize="small" className="buttonIcon">open_in_new</Icon>
           </Button>
-          { bookId && ['mn', 'sn', 'an', 'dn', 'dhp', 'iti'].includes(bookId[0])
+          { bookId && ['mn', 'sn', 'an', 'dn', 'dhp', 'iti', 'snp'].includes(bookId)
             ? <Button variant="outlined"
-              href={`https://suttacentral.net/${suttaId}/en/sujato#${ptsRef}`}
-              target='_blank' rel="noopener noreferrer">
-                English (Sujato) 
-              <Icon fontSize="small">open_in_new</Icon>
-            </Button>
-            : null
-          }
-          { bookId && ['mn', 'sn', 'an'].includes(bookId[0])
-            ? <Button variant="outlined"
-              href={`https://suttacentral.net/${suttaId}/en/bodhi`}
-              target='_blank' rel="noopener noreferrer">
-                English (Bodhi)
-              <Icon fontSize="small">open_in_new</Icon>
+                href={`https://suttacentral.net/${suttaId}/en/${translator}#${ptsRef}`}
+                target='_blank' 
+                rel="noopener noreferrer"
+              >
+                English
+              <Icon fontSize="small" className="buttonIcon">open_in_new</Icon>
             </Button>
             : null
           }
