@@ -156,12 +156,19 @@ export default class Search extends Component {
             id="search"
             placeholder="ie. D ii 14"
             value={text}
-            onChange={(e) => handleChange({ text: e.target.value, isError: false })}
+            onChange={(e) => handleChange({ 
+              text: e.target.value, 
+              isError: false 
+            })}
             aria-describedby="search-text"
             endAdornment={
               <InputAdornment position="end">
                 <IconButton 
-                  onClick={() => handleChange({ text: '', isError: false })} 
+                  onClick={() => handleChange({ 
+                    text: '',
+                    isError: false,
+                    multipleEditionResults: null
+                  })} 
                   disabled={text === ''}
                 >
                   <Icon>close</Icon>

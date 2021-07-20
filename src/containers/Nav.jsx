@@ -13,7 +13,13 @@ export default class Nav extends Component {
         <Tabs
           className="tabs"
           value={tabValue}
-          onChange={(e, value) => handleChange({ tabValue: value,  })}
+          onChange={(e, value) => handleChange({ 
+            tabValue: value,
+            selectedBook: '',
+            selectedDiv: '',
+            selectedNum: '',
+            multipleEditionResults: null
+          })}
           indicatorColor="primary"
           textColor="primary"
           variant="fullWidth"
