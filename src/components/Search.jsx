@@ -33,20 +33,14 @@ export default class Search extends Component {
 
     // if book has multiple editions
     if (Object.keys(ptsData).filter((eachBook) => eachBook.includes(`${book} `)).length > 0) {
-      console.log('more than one edition')
       // get indexes of all book editions
       const indexes = hasMoreThanOne(Object.keys(ptsData).map(key => key.split(/\s+/)[0]), book);
-      console.log('indexes', indexes)
       // return data from those indexes in ptsData and put in new object
       const indexesData = {...indexes.map(index => Object.values(ptsData)[index])};
       // get the required info from this new object instead of whole ptsData
       const bothResults = Object.keys(indexesData).map((ed) => 
         get(indexesData, `${ed}.${division}.${page}`, null) || 
           get(indexesData, `${ed}.${division}`, null))
-          
-      console.log('ptsData', ptsData)
-      console.log('indexesData', indexesData)
-      console.log('bothResults', bothResults)
       
       // account for books with and without divisions
       if (bothResults.every((elem) => elem === null)) {
@@ -72,7 +66,6 @@ export default class Search extends Component {
       
       // filter out null results (when only one edition has the searched page)
       const results = bothResults.filter((result) => result !== null && result.length <= 2)
-      console.log('results', results)
       
       // handle (what is probably a) page number error
       if (!results.length) {
@@ -94,12 +87,10 @@ export default class Search extends Component {
     }
 
     // has only one edition
-    console.log('only one edition')
 
     // check if book has no divisions
     if (isArray(ptsData[book]) && typeof ptsData[book] !== 'undefined') {
-      console.log('this book has no divisions')
-      
+
       // page number reference is out of range (the const 'division' refers to page number for books that have no division)
       if (!ptsData[book][division]) {
         console.warn('please enter a correct page number reference')
@@ -124,7 +115,6 @@ export default class Search extends Component {
     }
 
     // book has divisions
-    console.log('has divisions')
 
     // book reference is incorrect
     if (!ptsData[book]) {

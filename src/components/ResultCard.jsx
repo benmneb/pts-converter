@@ -20,10 +20,6 @@ export default class ResultCard extends Component {
   render() {
     const [suttaId, ptsRef] = this.props.data;
   
-    console.log('this.props.data', this.props.data)
-    console.log('suttaId', suttaId)
-    console.log('ptsRef', ptsRef)
-  
     const bookId = suttaId.match(/[^0-9]+/gi)[0];
     const translator = ['snp'].includes(bookId) ? 'mills' : 'sujato';
     const referral = window.location.origin.split('://')[1]

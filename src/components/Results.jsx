@@ -12,8 +12,6 @@ export default function Results(props) {
     multiEdRes ? multiEdRes : get(ptsData, `${book}.${division}.${page}`, null) ||
     get(ptsData, `${book}.${page}`, null)
 
-  console.log('final result', finalResult)
-
   if (finalResult === null) {
     return null
   }
