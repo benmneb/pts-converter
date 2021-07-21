@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/pts-converter/static/js/runtime~main.91c4dc23.js"
   },
   {
-    "revision": "5a0f5aff7d1e25250af1e56bf69eb5cf",
+    "revision": "8a0b4afd7536ba7f67110cc859f35da7",
     "url": "/pts-converter/index.html"
   }
 ];
