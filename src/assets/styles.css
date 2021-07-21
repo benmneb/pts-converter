@@ -89,6 +89,13 @@ main.tabsWrapper {
   align-items: center;
 }
 
+.resultCardHeaderTitle {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 8px;
+}
+
 .resultCardActions {
   display: flex;
   justify-content: space-evenly;
@@ -121,6 +128,14 @@ main.tabsWrapper {
 
 .buttonIcon {
   margin-left: 8px;
+}
+
+.snackbarCloseIcon {
+  padding: 4px;
+}
+
+.cursorCopy {
+  cursor: copy;
 }
  
 @media (max-width: 600px) {
