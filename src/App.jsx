@@ -8,16 +8,12 @@ import { Footer, Header, Nav, Main } from './containers';
 import './assets/styles.css'
 
 export default class App extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      selectedBook: '',
-      selectedDiv: '',
-      selectedNum: '',
-      multipleEditionResults: null,
-      tabValue: 0
-    }
+  state = {
+    selectedBook: '',
+    selectedDiv: '',
+    selectedNum: '',
+    multipleEditionResults: null,
+    tabValue: 0
   }
 
   handleChangeState = (changes) => {

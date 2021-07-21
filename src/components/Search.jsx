@@ -15,14 +15,10 @@ import ptsData from '../data/pts_lookup.json'
 import { hasMoreThanOne, toSentenceCase } from '../utils'
 
 export default class Search extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      text: '',
-      isError: false,
-      errorMessage: null
-    }
+  state = {
+    text: '',
+    isError: false,
+    errorMessage: null
   }
   
   handleSubmit = (e) => {
