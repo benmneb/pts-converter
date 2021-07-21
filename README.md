@@ -4,7 +4,7 @@
 
 The search tab is a case-insensitive PTS lookup that currently references 34 different books (full list below). It is perfect for copy and pasting or quickly typing Pali Text Society references and reading the sutta online.
 
-The search input accepts two or three whitespace seperated values in the format of PTS references, eg. `M i 5`, `Dhp 34`, `Bv i 16`, `It 80`.
+The search input accepts two or three whitespace seperated values in the format of PTS references, eg. `M i 5`, `Dhp 34`, `Bv i 16`, `It 80`. You don't need to specify a book edition number, be default the search will return all available editions.
 
 If multiple results appear, it's because the book you searched for has multiple editions. When available, the first edition's reference is always displayed first.
 
