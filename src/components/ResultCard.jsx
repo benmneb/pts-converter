@@ -18,7 +18,7 @@ export default class ResultCard extends Component {
   
     const bookId = suttaId.match(/[^0-9]+/gi)[0];
     const translator = ['snp'].includes(bookId) ? 'mills' : 'sujato';
-    const referral = window.location.origin.split('https://')[1]
+    const referral = window.location.origin.split('://')[1]
     
     return (
     <Card variant="outlined" elevation={0} className="resultCard">
