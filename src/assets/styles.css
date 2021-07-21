@@ -1,6 +1,17 @@
-html {
+@import url('https://rsms.me/inter/inter.css');
+
+html { 
+  font-family: 'Inter', sans-serif; 
+  font-feature-settings: "zero", "ss01", "ss02", "ss03";
   font-size: calc(1em + 1vw);
 }
+
+@supports (font-variation-settings: normal) {
+  html { 
+    font-family: 'Inter var', sans-serif; 
+  }
+}
+
 
 #root {
   display: flex;
@@ -92,14 +103,14 @@ main.tabsWrapper {
 }
 
 .link:hover {
-    color: #212121;
-    box-shadow: inset 0 -1.3rem 0 #ff9800;
+  color: #212121;
+  box-shadow: inset 0 -1.3rem 0 #ff9800;
 }
 
 .footerLink {
   text-decoration: none;
   color: inherit;
-  box-shadow: none;
+  box-shadow: inset 0 0 0 #ff9800;
   transition: all 300ms ease-in-out;
 }
 
