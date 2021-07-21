@@ -64,7 +64,7 @@ export default function About() {
           Attribution is appreciated but not legally required.
         </p>
         <a 
-          className="link"
+          className="footerLink"
           rel="license noopener noreferrer"
           href="http://creativecommons.org/publicdomain/zero/1.0/"
           target="_blank"
