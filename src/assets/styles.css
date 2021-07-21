@@ -32,6 +32,13 @@ footer {
   margin: 0 0 24px 0;
 }
 
+code {
+  background-color: #303030;
+  padding: 0 16px;
+  border-radius: 16px;
+  white-space: nowrap;
+}
+
 .form {
   display: flex;
   gap: 16px;

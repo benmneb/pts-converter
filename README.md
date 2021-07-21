@@ -4,9 +4,11 @@
 
 The search tab is a case-insensitive PTS lookup that currently references 34 different books (full list below). It is perfect for copy and pasting or quickly typing Pali Text Society references and reading the sutta online.
 
-The search input accepts two or three whitespace seperated values in the format of PTS references, eg. `M i 5`, `Dhp 34`, `Bv i 16`, `It 80`. You don't need to specify a book edition number, be default the search will return all available editions.
+The search input accepts two or three whitespace/period seperated values in the format of PTS references (book, division?, page), eg. `M i 5`, `Dhp 34`, `Bv i. 16`, `it.80`, `S.I.42`.
 
-If multiple results appear, it's because the book you searched for has multiple editions. When available, the first edition's reference is always displayed first.
+You don't need to specify a book edition number, by default the search will return all available editions.
+
+If multiple results appear, it's because the reference you searched for applied to multiple book editions. The earliest edition's reference is always displayed first.
 
 ## Select
 
@@ -51,7 +53,7 @@ The select tab allows for manual entering of book reference, division and page n
 
 ## About
 
-This project started out as an internal utility function to automatically convert the PTS references in my project [The 40 Buddhist Meditation Subjects](https://github.com/benmneb/meditation-subjects) which is a PWA of the practical instructions from the Visuddhimagga.
+This project started out as an internal utility function to automatically convert the PTS references in my project [The 40 Buddhist Meditation Subjects](https://github.com/benmneb/meditation-subjects) which is a prettified version of the practical instructions from the Visuddhimagga.
 
 This PTS reference converter was built on top of the great open source work done by [olaster](https://gitlab.com/olastor/pts-converter/), which was built on top of the priceless open source work going on at [Sutta Central](https://suttacentral.net).
 

@@ -16,8 +16,13 @@ export default function About() {
           It is perfect for copy and pasting or quickly typing Pali Text Society references and reading the sutta online.
         </p>
         <p>
-          If multiple results appear, it's because the book you searched for has multiple editions. 
-          When available, the first edition's reference is always displayed first.
+          The search input accepts two or three whitespace/period seperated values in the format of PTS references (book, division?, page), eg. <code>M i 5</code>, <code>Dhp 34</code>, <code>Bv i. 16</code>, <code>it.80</code>, <code>S.I.42</code>.
+        </p>
+        <p>
+          You don't need to specify a book edition number, by default the search will return all available editions.
+        </p>
+        <p>
+          If multiple results appear, it's because the reference you searched for applied to multiple book editions. The earliest edition's reference is always displayed first.
         </p>
         <p>
           The select tab allows for manual entering of book reference, division and page number.
@@ -35,7 +40,7 @@ export default function About() {
           This project started out as an internal utility function to automatically convert the PTS references in my project {' '}  
           <a href="https://github.com/benmneb/meditation-subjects" className="link" target="_blank" rel="noopener noreferrer">
           The 40 Buddhist Meditation Subjects
-          </a> which is a digitised version of the practical instructions from the Visuddhimagga.
+          </a> which is a prettified version of the practical instructions from the Visuddhimagga.
         </p>
         <p>
           This PTS reference converter was built on top of the great open source work done by {' '}
