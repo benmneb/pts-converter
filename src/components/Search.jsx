@@ -21,6 +21,7 @@ import {
   handleInputChange,
 } from '../state';
 import { hasMoreThanOne, toSentenceCase } from '../utils';
+import '../assets/styles.css';
 
 export default function Search() {
   const dispatch = useDispatch();
@@ -147,10 +148,13 @@ export default function Search() {
   return (
     <form onSubmit={handleSubmit} className="form">
       <FormControl
+        size="medium"
         variant="filled"
         error={isError && Boolean(inputText.length)}
       >
-        <InputLabel htmlFor="search">Search</InputLabel>
+        <InputLabel htmlFor="search" classes={{ shrink: 'inputShrink' }}>
+          Search
+        </InputLabel>
         <FilledInput
           id="search"
           placeholder="ie. D ii 14"
@@ -163,7 +167,7 @@ export default function Search() {
                 onClick={() => dispatch(clearInput())}
                 disabled={inputText === ''}
               >
-                <Icon>close</Icon>
+                <Icon fontSize="small">close</Icon>
               </IconButton>
             </InputAdornment>
           }
