@@ -111,6 +111,12 @@ main.tabsWrapper {
   width: 100%;
 }
 
+.multiResultCardContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .link {
   text-decoration: none;
   color: inherit;

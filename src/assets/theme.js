@@ -15,4 +15,11 @@ export const theme = createTheme({
   shape: {
     borderRadius: 16,
   },
+  overrides: {
+    MuiSelect: {
+      icon: {
+        top: 'calc(50% - 0.8rem)',
+      },
+    },
+  },
 });

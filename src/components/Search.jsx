@@ -1,5 +1,3 @@
-import { Component } from 'react';
-
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FilledInput from '@material-ui/core/FilledInput';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -9,27 +7,32 @@ import Icon from '@material-ui/core/Icon';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 
+import { useDispatch, useSelector } from 'react-redux';
+
 import { get, isArray } from 'lodash';
 
 import ptsData from '../data/pts_lookup.json';
+import {
+  setError,
+  resetInputValues,
+  clearInput,
+  setMultipleEditionSearchResults,
+  setSearchResults,
+  handleInputChange,
+} from '../state';
 import { hasMoreThanOne, toSentenceCase } from '../utils';
 
-export default class Search extends Component {
-  state = {
-    text: '',
-    isError: false,
-    errorMessage: null,
-  };
+export default function Search() {
+  const dispatch = useDispatch();
 
-  handleSubmit = (e) => {
-    const { handleChange, resetInputStates } = this.props;
+  const inputText = useSelector((state) => state.inputText);
+  const isError = useSelector((state) => state.isError);
+  const errorMessage = useSelector((state) => state.errorMessage);
 
+  function handleSubmit(e) {
     e.preventDefault();
 
-    const input = this.state.text
-      .trim()
-      .replace(/[.+]/g, ' ')
-      .split(/\s+/);
+    const input = inputText.trim().replace(/[.+]/g, ' ').split(/\s+/);
     const book = toSentenceCase(input[0]);
     const division = input[1] && input[1].toLowerCase(); // this refers to page number for books that have no division
     const page = input[2];
@@ -64,19 +67,14 @@ export default class Search extends Component {
           console.warn(
             'long indexData children lengths, probably no divisions'
           );
-          this.setState({
-            isError: true,
-            errorMessage: 'Please enter a valid page number',
-          });
-          return resetInputStates();
+
+          dispatch(setError('Please enter a valid page number'));
+          return dispatch(resetInputValues());
         }
 
         // must have divisions
-        this.setState({
-          isError: true,
-          errorMessage: 'Please enter a valid book division',
-        });
-        return resetInputStates();
+        dispatch(setError('Please enter a valid book division'));
+        return dispatch(resetInputValues());
       }
 
       // filter out null results (when only one edition has the searched page)
@@ -89,20 +87,15 @@ export default class Search extends Component {
         console.warn(
           'results array empty, probably due to out of range page number'
         );
-        this.setState({
-          isError: true,
-          errorMessage: 'Please enter a valid page number',
-        });
-        return resetInputStates();
+
+        dispatch(setError('Please enter a valid page number'));
+        return dispatch(resetInputValues());
       }
 
-      this.setState({
-        text: input.join(' '),
-        isError: false,
-      });
-      return handleChange({
-        multipleEditionResults: results,
-      });
+      // else all is good!
+      return dispatch(
+        setMultipleEditionSearchResults(results, input.join(' '))
+      );
     }
 
     // has only one edition
@@ -112,24 +105,13 @@ export default class Search extends Component {
       // page number reference is out of range (the const 'division' refers to page number for books that have no division)
       if (!ptsData[book][division]) {
         console.warn('please enter a correct page number reference');
-        this.setState({
-          isError: true,
-          errorMessage: 'Please enter a correct page number',
-        });
-        return resetInputStates();
+
+        dispatch(setError('Please enter a valid page number'));
+        return dispatch(resetInputValues());
       }
 
       // else all is good!
-      this.setState({
-        text: input.join(' '),
-        isError: false,
-      });
-      return handleChange({
-        selectedBook: book,
-        selectedDiv: '',
-        selectedNum: division,
-        multipleEditionResults: null,
-      });
+      return dispatch(setSearchResults(book, '', division, input.join(' ')));
     }
 
     // book has divisions
@@ -137,98 +119,64 @@ export default class Search extends Component {
     // book reference is incorrect
     if (!ptsData[book]) {
       console.warn('please enter a correct book reference');
-      this.setState({
-        isError: true,
-        errorMessage: 'Please enter a valid book reference',
-      });
-      return resetInputStates();
+
+      dispatch(setError('Please enter a valid book reference'));
+      return dispatch(resetInputValues());
     }
 
     // division reference is incorrect
     if (!ptsData[book][division]) {
       console.warn('please enter a correct division reference');
-      this.setState({
-        isError: true,
-        errorMessage: 'Please enter a valid book division',
-      });
-      return resetInputStates();
+
+      dispatch(setError('Please enter a valid book division'));
+      return dispatch(resetInputValues());
     }
 
     // number reference is incorrect
     if (!ptsData[book][division][page]) {
       console.warn('please enter a correct page number reference');
-      this.setState({
-        isError: true,
-        errorMessage: 'Please enter a valid page number',
-      });
-      return resetInputStates();
+
+      dispatch(setError('Please enter a valid page number'));
+      return dispatch(resetInputValues());
     }
 
     // else all is good!
-    this.setState({
-      text: input.join(' '),
-      isError: false,
-    });
-    handleChange({
-      selectedBook: book,
-      selectedDiv: division,
-      selectedNum: page,
-      multipleEditionResults: null,
-    });
-  };
-
-  handleCloseIconClick = () => {
-    const { resetInputStates } = this.props;
-
-    this.setState({
-      text: '',
-      isError: false,
-    });
-    resetInputStates();
-  };
-
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit} className="form">
-        <FormControl
-          variant="filled"
-          error={this.state.isError && Boolean(this.state.text.length)}
-        >
-          <InputLabel htmlFor="search">Search</InputLabel>
-          <FilledInput
-            id="search"
-            placeholder="ie. D ii 14"
-            value={this.state.text}
-            onChange={(e) =>
-              this.setState({
-                text: e.target.value,
-                isError: false,
-              })
-            }
-            aria-describedby="search-text"
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={this.handleCloseIconClick}
-                  disabled={this.state.text === ''}
-                >
-                  <Icon>close</Icon>
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-          <FormHelperText id="search-text">
-            {this.state.isError && this.state.text
-              ? this.state.errorMessage
-              : ' '}
-          </FormHelperText>
-        </FormControl>
-        <div className="submitBox">
-          <Button type="submit" disabled={this.state.text === ''}>
-            Convert
-          </Button>
-        </div>
-      </form>
-    );
+    return dispatch(setSearchResults(book, division, page, input.join(' ')));
   }
+
+  return (
+    <form onSubmit={handleSubmit} className="form">
+      <FormControl
+        variant="filled"
+        error={isError && Boolean(inputText.length)}
+      >
+        <InputLabel htmlFor="search">Search</InputLabel>
+        <FilledInput
+          id="search"
+          placeholder="ie. D ii 14"
+          value={inputText}
+          onChange={(e) => dispatch(handleInputChange(e.target.value))}
+          aria-describedby="search-text"
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                onClick={() => dispatch(clearInput())}
+                disabled={inputText === ''}
+              >
+                <Icon>close</Icon>
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+        <FormHelperText id="search-text">
+          {isError && inputText ? errorMessage : ' '}
+        </FormHelperText>
+      </FormControl>
+      <div className="submitBox">
+        <Button type="submit" disabled={inputText === ''}>
+          Convert
+        </Button>
+      </div>
+    </form>
+  );
 }

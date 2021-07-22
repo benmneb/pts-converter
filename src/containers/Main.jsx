@@ -1,19 +1,12 @@
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 
+import { useSelector } from 'react-redux';
+
 import { TabContainer, Results, Search, Select, About } from '../components';
 
-export default function Main(props) {
-  const {
-    tabValue,
-    multiEdRes,
-    book,
-    division,
-    page,
-    handleChangeSelect,
-    handleChangeSearch,
-    handleReset,
-  } = props;
+export default function Main() {
+  const tabValue = useSelector((state) => state.navTab);
 
   return (
     <Card className="tabsWrapper" component="main">
@@ -22,16 +15,8 @@ export default function Main(props) {
           <Typography paragraph component="h2">
             Please type or copy & paste the PTS reference you want to convert.
           </Typography>
-          <Search
-            handleChange={handleChangeSearch}
-            resetInputStates={handleReset}
-          />
-          <Results
-            multiEdRes={multiEdRes}
-            book={book}
-            division={division}
-            page={page}
-          />
+          <Search />
+          <Results />
         </TabContainer>
       )}
       {tabValue === 1 && (
@@ -39,18 +24,8 @@ export default function Main(props) {
           <Typography paragraph component="h2">
             Please select the PTS reference you want to convert.
           </Typography>
-          <Select
-            book={book}
-            division={division}
-            page={page}
-            handleChange={handleChangeSelect}
-          />
-          <Results
-            multiEdRes={multiEdRes}
-            book={book}
-            division={division}
-            page={page}
-          />
+          <Select />
+          <Results />
         </TabContainer>
       )}
       {tabValue === 2 && (

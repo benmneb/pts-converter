@@ -2,8 +2,14 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
+import { useSelector, useDispatch } from 'react-redux';
+
+import { setNavTab } from '../state';
+
 export default function Nav(props) {
-  const { tabValue, handleChange } = props;
+  const dispatch = useDispatch();
+
+  const tabValue = useSelector((state) => state.navTab);
 
   return (
     <AppBar
@@ -15,15 +21,7 @@ export default function Nav(props) {
       <Tabs
         className="tabs"
         value={tabValue}
-        onChange={(e, value) =>
-          handleChange({
-            tabValue: value,
-            selectedBook: '',
-            selectedDiv: '',
-            selectedNum: '',
-            multipleEditionResults: null,
-          })
-        }
+        onChange={(e, value) => dispatch(setNavTab(value))}
         indicatorColor="primary"
         textColor="primary"
         variant="fullWidth"

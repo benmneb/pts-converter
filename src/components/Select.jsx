@@ -5,10 +5,17 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 import { get, isArray } from 'lodash';
 
-import ptsData from '../data/pts_lookup.json';
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function Select(props) {
-  const { book, division, page, handleChange } = props;
+import ptsData from '../data/pts_lookup.json';
+import { selectBook, selectDivision, selectPage } from '../state';
+
+export default function Select() {
+  const dispatch = useDispatch();
+
+  const book = useSelector((state) => state.selectedBook);
+  const division = useSelector((state) => state.selectedDivision);
+  const page = useSelector((state) => state.selectedPage);
 
   return (
     <div className="selection">
@@ -17,13 +24,7 @@ export default function Select(props) {
         <MuiSelect
           name="selectedBook"
           value={book}
-          onChange={(e) =>
-            handleChange({
-              selectedBook: e.target.value,
-              selectedDiv: '',
-              selectedNum: '',
-            })
-          }
+          onChange={(e) => dispatch(selectBook(e.target.value))}
         >
           <MenuItem value="">
             <em>None</em>
@@ -42,12 +43,7 @@ export default function Select(props) {
         <MuiSelect
           name="selectedDiv"
           value={division}
-          onChange={(e) =>
-            handleChange({
-              selectedDiv: e.target.value,
-              selectedNum: '',
-            })
-          }
+          onChange={(e) => dispatch(selectDivision(e.target.value))}
           disabled={!book}
         >
           <MenuItem value="">
@@ -67,13 +63,7 @@ export default function Select(props) {
         <MuiSelect
           name="selectedNum"
           value={page}
-          onChange={(e) =>
-            handleChange({
-              selectedNum: e.target.value,
-              text: '',
-              multipleEditionResults: null,
-            })
-          }
+          onChange={(e) => dispatch(selectPage(e.target.value))}
           disabled={
             !isArray(ptsData[book]) &&
             !isArray(get(ptsData, `${book}.${division}`, null))
