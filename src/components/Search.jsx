@@ -167,7 +167,7 @@ export default function Search() {
                 onClick={() => dispatch(clearInput())}
                 disabled={inputText === ''}
               >
-                <Icon fontSize="small">close</Icon>
+                <Icon>close</Icon>
               </IconButton>
             </InputAdornment>
           }

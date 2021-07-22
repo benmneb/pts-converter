@@ -42,9 +42,7 @@ export default function ResultCard(props) {
                   text={suttaId.toUpperCase()}
                   onCopy={() => dispatch(toggleSnackbar())}
                 >
-                  <Icon fontSize="small" color="disabled">
-                    content_copy
-                  </Icon>
+                  <Icon color="disabled">content_copy</Icon>
                 </CopyToClipboard>
               </Tooltip>
             </div>
@@ -59,9 +57,7 @@ export default function ResultCard(props) {
             rel="noopener noreferrer"
           >
             Pali
-            <Icon fontSize="small" className="buttonIcon">
-              open_in_new
-            </Icon>
+            <Icon className="buttonIcon">open_in_new</Icon>
           </Button>
           {bookId &&
           ['mn', 'sn', 'an', 'dn', 'dhp', 'iti', 'snp'].includes(bookId) ? (
@@ -72,9 +68,7 @@ export default function ResultCard(props) {
               rel="noopener noreferrer"
             >
               English
-              <Icon fontSize="small" className="buttonIcon">
-                open_in_new
-              </Icon>
+              <Icon className="buttonIcon">open_in_new</Icon>
             </Button>
           ) : null}
         </CardActions>
