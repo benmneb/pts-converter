@@ -45,7 +45,7 @@ hr {
 .form {
   display: flex;
   gap: 16px;
-  margin-top: 56px;
+  margin: 56px 0 8px;
 }
 
 .submitBox {
@@ -83,8 +83,7 @@ main.tabsWrapper {
 .selection {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 56px;
-  margin-bottom: 32px;
+  margin: 56px 0;
   gap: 8px;
 }
 

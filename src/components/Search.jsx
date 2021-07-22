@@ -218,7 +218,9 @@ export default class Search extends Component {
             }
           />
           <FormHelperText id="search-text">
-            {this.state.isError && this.state.text && this.state.errorMessage}
+            {this.state.isError && this.state.text
+              ? this.state.errorMessage
+              : ' '}
           </FormHelperText>
         </FormControl>
         <div className="submitBox">

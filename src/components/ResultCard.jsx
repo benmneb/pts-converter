@@ -26,7 +26,7 @@ export default class ResultCard extends Component {
 
     return (
       <Fragment>
-        <Card variant="outlined" elevation={0} className="resultCard">
+        <Card elevation={0} className="resultCard">
           <CardHeader
             title={
               <div className="resultCardHeaderTitle">
