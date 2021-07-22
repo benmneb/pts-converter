@@ -11,7 +11,7 @@ export default function Main() {
   return (
     <Card className="tabsWrapper" component="main">
       {tabValue === 0 && (
-        <TabContainer>
+        <TabContainer index={0} value={tabValue}>
           <Typography paragraph component="h2">
             Please type or copy & paste the PTS reference you want to convert.
           </Typography>
@@ -20,7 +20,7 @@ export default function Main() {
         </TabContainer>
       )}
       {tabValue === 1 && (
-        <TabContainer>
+        <TabContainer index={1} value={tabValue}>
           <Typography paragraph component="h2">
             Please select the PTS reference you want to convert.
           </Typography>
@@ -29,7 +29,7 @@ export default function Main() {
         </TabContainer>
       )}
       {tabValue === 2 && (
-        <TabContainer>
+        <TabContainer index={2} value={tabValue}>
           <About />
         </TabContainer>
       )}

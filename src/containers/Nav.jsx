@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { setNavTab } from '../state';
 
-export default function Nav(props) {
+export default function Nav() {
   const dispatch = useDispatch();
 
   const tabValue = useSelector((state) => state.navTab);
