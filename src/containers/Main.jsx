@@ -10,29 +10,23 @@ export default function Main() {
 
   return (
     <Card className="tabsWrapper" component="main">
-      {tabValue === 0 && (
-        <TabContainer>
-          <Typography paragraph component="h2">
-            Please type or copy & paste the PTS reference you want to convert.
-          </Typography>
-          <Search />
-          <Results />
-        </TabContainer>
-      )}
-      {tabValue === 1 && (
-        <TabContainer>
-          <Typography paragraph component="h2">
-            Please select the PTS reference you want to convert.
-          </Typography>
-          <Select />
-          <Results />
-        </TabContainer>
-      )}
-      {tabValue === 2 && (
-        <TabContainer>
-          <About />
-        </TabContainer>
-      )}
+      <TabContainer index={0} value={tabValue}>
+        <Typography paragraph component="h2">
+          Please type or copy & paste the PTS reference you want to convert.
+        </Typography>
+        <Search />
+        <Results />
+      </TabContainer>
+      <TabContainer index={1} value={tabValue}>
+        <Typography paragraph component="h2">
+          Please select the PTS reference you want to convert.
+        </Typography>
+        <Select />
+        <Results />
+      </TabContainer>
+      <TabContainer index={2} value={tabValue}>
+        <About />
+      </TabContainer>
     </Card>
   );
 }
