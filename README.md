@@ -1,68 +1,63 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# PTS to Sutta Converter
 
-## Available Scripts
+**[Try it!](https://benmneb.github.io/pts-converter/)**
 
-In the project directory, you can run:
+## Search
 
-### `npm start`
+The search tab is a case-insensitive PTS lookup that currently references 33 different books (full list below). It is perfect for copy and pasting or quickly typing Pali Text Society references and reading the sutta online.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The search input accepts two or three whitespace/period seperated values in the format of PTS references (book, division?, page), eg. `M i 5`, `Dhp 34`, `Bv i. 16`, `it.80`, `S.I.42`.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+You don't need to specify a book edition number, by default the search will return all available editions.
 
-### `npm test`
+If multiple results appear, it's because the reference you searched for applied to multiple book editions. The earliest edition's reference is always displayed first.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Select
 
-### `npm run build`
+The select tab allows for manual entering of book reference, division and page number.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Available PTS references
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+- A
+- Bv (1ed)
+- Bv (2ed)
+- Cp (1ed)
+- Cp (2ed)
+- D
+- Dhp (1ed)
+- Dhp (2ed)
+- Dhs
+- It
+- Ja
+- Kv
+- M
+- Mil
+- Nett
+- Nidd I
+- Nidd II
+- Patis
+- Pp
+- Pv (2ed)
+- S (1ed)
+- S (2ed)
+- Sn
+- Th
+- Thi
+- Ud
+- Vib
+- Vv (2ed)
+- dt
+- pe
+- tha
+- thi
+- ya
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## About
 
-### `npm run eject`
+This project started out as an internal utility function to automatically convert the PTS references in my project [The 40 Buddhist Meditation Subjects](https://github.com/benmneb/meditation-subjects) which is a prettified version of the practical instructions from the Visuddhimagga.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+This PTS reference converter was built on top of the great open source work done by [olaster](https://gitlab.com/olastor/pts-converter/), which was built on top of the priceless open source work going on at [Sutta Central](https://suttacentral.net).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Licence
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This work is dedicated to the public domain via [Creative Commons Zero (CC0)](http://creativecommons.org/publicdomain/zero/1.0/). You are free to copy or modify it as you see fit. Attribution is appreciated but not legally required.
