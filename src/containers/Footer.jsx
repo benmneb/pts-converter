@@ -1,21 +1,20 @@
-import React from 'react'
+import React from 'react';
 
-import Typography from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography';
 
 export default function Footer() {
   return (
     <footer>
       <Typography color="textSecondary">
-        <a 
+        <a
           className="footerLink"
           rel="license noopener noreferrer"
           href="http://creativecommons.org/publicdomain/zero/1.0/"
           target="_blank"
         >
           CC0
-        </a> 
-        {' '}
-        <a 
+        </a>{' '}
+        <a
           className="footerLink"
           href="https://github.com/benmneb"
           target="_blank"
@@ -25,5 +24,5 @@ export default function Footer() {
         </a>
       </Typography>
     </footer>
-  )
+  );
 }

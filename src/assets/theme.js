@@ -4,7 +4,7 @@ import orange from '@material-ui/core/colors/orange';
 export const theme = createMuiTheme({
   palette: {
     type: 'dark',
-    primary: orange
+    primary: orange,
   },
   typography: {
     fontFamily: ['Inter', 'sans-serif'].join(','),

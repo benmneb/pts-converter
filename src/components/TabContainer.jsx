@@ -1,9 +1,5 @@
-import React from 'react'
+import React from 'react';
 
 export default function TabContainer({ children }) {
-  return (
-    <div className="tabContainer">
-      {children}
-    </div>
-  );
+  return <div className="tabContainer">{children}</div>;
 }

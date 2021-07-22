@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 
 import MuiSnackbar from '@material-ui/core/Snackbar';
 
-import '../assets/styles.css'
+import '../assets/styles.css';
 
 export default function Snackbar(props) {
   const { open, close } = props;
-  
+
   function handleClose(event, reason) {
     if (reason !== 'clickaway') {
       close();
     }
-  };
+  }
 
   return (
     <MuiSnackbar
@@ -27,5 +27,5 @@ export default function Snackbar(props) {
       }}
       message={<span id="message-id">Sutta reference copied to clipboard</span>}
     />
-  )
+  );
 }

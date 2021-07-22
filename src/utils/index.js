@@ -1,2 +1,2 @@
-export { hasMoreThanOne } from './hasMoreThanOne'
-export { toSentenceCase } from './toSentenceCase'
+export { hasMoreThanOne } from './hasMoreThanOne';
+export { toSentenceCase } from './toSentenceCase';

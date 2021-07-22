@@ -1,20 +1,20 @@
-import React from 'react'
+import React from 'react';
 
-import Typography from '@material-ui/core/Typography'
-import Card from '@material-ui/core/Card'
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
 
-import { TabContainer, Results, Search, Select, About } from '../components'
+import { TabContainer, Results, Search, Select, About } from '../components';
 
 export default function Main(props) {
-  const { 
-    tabValue, 
-    multiEdRes, 
-    book, 
-    division, 
-    page, 
+  const {
+    tabValue,
+    multiEdRes,
+    book,
+    division,
+    page,
     handleChangeSelect,
     handleChangeSearch,
-    handleReset  
+    handleReset,
   } = props;
 
   return (
@@ -24,15 +24,15 @@ export default function Main(props) {
           <Typography paragraph component="h2">
             Please type or copy & paste the PTS reference you want to convert.
           </Typography>
-          <Search 
+          <Search
             handleChange={handleChangeSearch}
             resetInputStates={handleReset}
           />
-          <Results 
-            multiEdRes={multiEdRes} 
-            book={book} 
-            division={division} 
-            page={page} 
+          <Results
+            multiEdRes={multiEdRes}
+            book={book}
+            division={division}
+            page={page}
           />
         </TabContainer>
       )}
@@ -41,16 +41,16 @@ export default function Main(props) {
           <Typography paragraph component="h2">
             Please select the PTS reference you want to convert.
           </Typography>
-          <Select 
-            book={book} 
-            division={division} 
+          <Select
+            book={book}
+            division={division}
             page={page}
             handleChange={handleChangeSelect}
           />
-          <Results 
-            multiEdRes={multiEdRes} 
-            book={book} 
-            division={division} 
+          <Results
+            multiEdRes={multiEdRes}
+            book={book}
+            division={division}
             page={page}
           />
         </TabContainer>
@@ -61,5 +61,5 @@ export default function Main(props) {
         </TabContainer>
       )}
     </Card>
-  )
+  );
 }
