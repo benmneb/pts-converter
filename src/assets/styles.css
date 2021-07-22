@@ -38,6 +38,10 @@ code {
   white-space: nowrap;
 }
 
+hr {
+  margin: 32px;
+}
+
 .form {
   display: flex;
   gap: 16px;
