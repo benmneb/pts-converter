@@ -161,6 +161,12 @@ export default function Search() {
           value={inputText}
           onChange={(e) => dispatch(handleInputChange(e.target.value))}
           aria-describedby="search-text"
+          inputProps={{
+            autoComplete: 'off',
+            autoCorrect: 'off',
+            autoCapitalize: 'off',
+            spellCheck: 'false',
+          }}
           endAdornment={
             <InputAdornment position="end">
               <IconButton
