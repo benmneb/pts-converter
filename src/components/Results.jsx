@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { get } from 'lodash';
 
 import ptsData from '../data/pts_lookup.json';

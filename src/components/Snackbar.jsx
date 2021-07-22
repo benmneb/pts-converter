@@ -1,5 +1,3 @@
-import React from 'react';
-
 import MuiSnackbar from '@material-ui/core/Snackbar';
 
 import '../assets/styles.css';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Typography from '@material-ui/core/Typography';
 
 import ptsData from '../data/pts_lookup.json';
