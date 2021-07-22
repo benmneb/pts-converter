@@ -42,7 +42,9 @@ export default function ResultCard(props) {
                   text={suttaId.toUpperCase()}
                   onCopy={() => dispatch(toggleSnackbar())}
                 >
-                  <Icon color="disabled">content_copy</Icon>
+                  <Icon fontSize="small" color="disabled">
+                    content_copy
+                  </Icon>
                 </CopyToClipboard>
               </Tooltip>
             </div>
