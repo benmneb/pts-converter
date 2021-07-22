@@ -26,10 +26,7 @@ export default class Search extends Component {
 
     e.preventDefault();
 
-    const input = this.state.text
-      .trim()
-      .replace(/[.+]/g, ' ')
-      .split(/\s+/);
+    const input = this.state.text.trim().replace(/[.+]/g, ' ').split(/\s+/);
     const book = toSentenceCase(input[0]);
     const division = input[1] && input[1].toLowerCase(); // this refers to page number for books that have no division
     const page = input[2];
@@ -206,6 +203,12 @@ export default class Search extends Component {
               })
             }
             aria-describedby="search-text"
+            inputProps={{
+              autoComplete: 'off',
+              autoCorrect: 'off',
+              autoCapitalize: 'off',
+              spellCheck: 'false',
+            }}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
