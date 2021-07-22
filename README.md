@@ -1,8 +1,10 @@
 # PTS to Sutta Converter
 
+**[Try it!](https://benmneb.github.io/pts-converter/)**
+
 ## Search
 
-The search tab is a case-insensitive PTS lookup that currently references 34 different books (full list below). It is perfect for copy and pasting or quickly typing Pali Text Society references and reading the sutta online.
+The search tab is a case-insensitive PTS lookup that currently references 33 different books (full list below). It is perfect for copy and pasting or quickly typing Pali Text Society references and reading the sutta online.
 
 The search input accepts two or three whitespace/period seperated values in the format of PTS references (book, division?, page), eg. `M i 5`, `Dhp 34`, `Bv i. 16`, `it.80`, `S.I.42`.
 
@@ -36,7 +38,6 @@ The select tab allows for manual entering of book reference, division and page n
 - Patis
 - Pp
 - Pv (2ed)
-- S
 - S (1ed)
 - S (2ed)
 - Sn
