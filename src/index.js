@@ -1,6 +1,6 @@
 import { render } from 'react-dom';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 import { Provider } from 'react-redux';
 import { store } from './state';
@@ -12,4 +12,4 @@ render(
   document.getElementById('root')
 );
 
-serviceWorker.register();
+serviceWorkerRegistration.register();
