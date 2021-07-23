@@ -4,7 +4,7 @@
 
 ## Features
 
-- Paste PTS references and see the sutta instantly
+- Paste or type PTS references and see the sutta instantly
 - Can "add to home-screen" then use offline
 
 ## Search
