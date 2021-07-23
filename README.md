@@ -2,6 +2,11 @@
 
 **[Try it!](https://benmneb.github.io/pts-converter/)**
 
+## Features
+
+- Paste PTS references and see the sutta instantly
+- Can "add to home-screen" then use offline
+
 ## Search
 
 The search tab is a case-insensitive PTS lookup that currently references 33 different books (full list below). It is perfect for copy and pasting or quickly typing Pali Text Society references and reading the sutta online.
