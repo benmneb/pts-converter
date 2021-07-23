@@ -1,13 +1,14 @@
 import FormControl from '@material-ui/core/FormControl';
 import MuiSelect from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { get, isArray } from 'lodash';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import ptsData from '../data/pts_lookup.json';
+import { ResponsiveMenuItem } from '../utils';
 import { selectBook, selectDivision, selectPage } from '../state';
 
 export default function Select() {
@@ -17,43 +18,48 @@ export default function Select() {
   const division = useSelector((state) => state.selectedDivision);
   const page = useSelector((state) => state.selectedPage);
 
+  const mobile = useMediaQuery((theme) => theme.breakpoints.only('xs'));
+  console.log(mobile);
+
   return (
     <div className="selection">
       <FormControl>
         <InputLabel>Book</InputLabel>
         <MuiSelect
+          native={mobile}
           name="selectedBook"
           value={book}
           onChange={(e) => dispatch(selectBook(e.target.value))}
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
+          <ResponsiveMenuItem value="" aria-label="none">
+            {!mobile ? <em>None</em> : null}
+          </ResponsiveMenuItem>
           {Object.keys(ptsData)
             .sort()
             .map((k) => (
-              <MenuItem value={k} key={k}>
+              <ResponsiveMenuItem value={k} key={k}>
                 {k}
-              </MenuItem>
+              </ResponsiveMenuItem>
             ))}
         </MuiSelect>
       </FormControl>
       <FormControl>
         <InputLabel>Division</InputLabel>
         <MuiSelect
+          native={mobile}
           name="selectedDiv"
           value={division}
           onChange={(e) => dispatch(selectDivision(e.target.value))}
-          disabled={!book}
+          disabled={!book || isArray(ptsData[book])}
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
+          <ResponsiveMenuItem value="" aria-label="none">
+            {!mobile ? <em>None</em> : null}
+          </ResponsiveMenuItem>
           {!isArray(ptsData[book]) && typeof ptsData[book] !== 'undefined'
             ? Object.keys(ptsData[book]).map((k) => (
-                <MenuItem value={k} key={k}>
+                <ResponsiveMenuItem value={k} key={k}>
                   {k}
-                </MenuItem>
+                </ResponsiveMenuItem>
               ))
             : null}
         </MuiSelect>
@@ -61,6 +67,7 @@ export default function Select() {
       <FormControl>
         <InputLabel>Page</InputLabel>
         <MuiSelect
+          native={mobile}
           name="selectedNum"
           value={page}
           onChange={(e) => dispatch(selectPage(e.target.value))}
@@ -69,24 +76,24 @@ export default function Select() {
             !isArray(get(ptsData, `${book}.${division}`, null))
           }
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
+          <ResponsiveMenuItem value="" aria-label="none">
+            {!mobile ? <em>None</em> : null}
+          </ResponsiveMenuItem>
           {isArray(get(ptsData, `${book}.${division}`, null))
             ? Object.entries(get(ptsData, `${book}.${division}`, null))
                 .filter(([k, v]) => v !== null)
                 .map(([k, v]) => (
-                  <MenuItem value={k} key={k}>
+                  <ResponsiveMenuItem value={k} key={k}>
                     {k}
-                  </MenuItem>
+                  </ResponsiveMenuItem>
                 ))
             : isArray(ptsData[book])
             ? Object.entries(get(ptsData, `${book}`, null))
                 .filter(([k, v]) => v !== null)
                 .map(([k, v]) => (
-                  <MenuItem value={k} key={k}>
+                  <ResponsiveMenuItem value={k} key={k}>
                     {k}
-                  </MenuItem>
+                  </ResponsiveMenuItem>
                 ))
             : null}
         </MuiSelect>
