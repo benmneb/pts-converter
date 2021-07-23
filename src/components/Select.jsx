@@ -19,7 +19,6 @@ export default function Select() {
   const page = useSelector((state) => state.selectedPage);
 
   const mobile = useMediaQuery((theme) => theme.breakpoints.only('xs'));
-  console.log(mobile);
 
   return (
     <div className="selection">

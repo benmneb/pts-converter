@@ -61,14 +61,8 @@ export default function Search() {
 
       // account for books with and without divisions
       if (bothResults.every((elem) => elem === null)) {
-        console.warn('results both null');
-
         // check if has no divisions
         if (Object.values(indexesData).every((child) => child.length > 20)) {
-          console.warn(
-            'long indexData children lengths, probably no divisions'
-          );
-
           dispatch(setError('Please enter a valid page number'));
           return dispatch(resetInputValues());
         }
@@ -85,10 +79,6 @@ export default function Search() {
 
       // handle (what is probably a) page number error
       if (!results.length) {
-        console.warn(
-          'results array empty, probably due to out of range page number'
-        );
-
         dispatch(setError('Please enter a valid page number'));
         return dispatch(resetInputValues());
       }
@@ -105,8 +95,6 @@ export default function Search() {
     if (isArray(ptsData[book]) && typeof ptsData[book] !== 'undefined') {
       // page number reference is out of range (the const 'division' refers to page number for books that have no division)
       if (!ptsData[book][division]) {
-        console.warn('please enter a correct page number reference');
-
         dispatch(setError('Please enter a valid page number'));
         return dispatch(resetInputValues());
       }
@@ -119,24 +107,18 @@ export default function Search() {
 
     // book reference is incorrect
     if (!ptsData[book]) {
-      console.warn('please enter a correct book reference');
-
       dispatch(setError('Please enter a valid book reference'));
       return dispatch(resetInputValues());
     }
 
     // division reference is incorrect
     if (!ptsData[book][division]) {
-      console.warn('please enter a correct division reference');
-
       dispatch(setError('Please enter a valid book division'));
       return dispatch(resetInputValues());
     }
 
     // number reference is incorrect
     if (!ptsData[book][division][page]) {
-      console.warn('please enter a correct page number reference');
-
       dispatch(setError('Please enter a valid page number'));
       return dispatch(resetInputValues());
     }
