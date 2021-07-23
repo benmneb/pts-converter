@@ -1,13 +1,15 @@
 {
   "files": {
     "main.css": "/pts-converter/static/css/main.efb974b6.chunk.css",
-    "main.js": "/pts-converter/static/js/main.4fef0ea4.chunk.js",
-    "main.js.map": "/pts-converter/static/js/main.4fef0ea4.chunk.js.map",
+    "main.js": "/pts-converter/static/js/main.c39f5f91.chunk.js",
+    "main.js.map": "/pts-converter/static/js/main.c39f5f91.chunk.js.map",
     "runtime-main.js": "/pts-converter/static/js/runtime-main.b29a7be7.js",
     "runtime-main.js.map": "/pts-converter/static/js/runtime-main.b29a7be7.js.map",
     "static/js/2.9c788562.chunk.js": "/pts-converter/static/js/2.9c788562.chunk.js",
     "static/js/2.9c788562.chunk.js.map": "/pts-converter/static/js/2.9c788562.chunk.js.map",
     "index.html": "/pts-converter/index.html",
+    "service-worker.js": "/pts-converter/service-worker.js",
+    "service-worker.js.map": "/pts-converter/service-worker.js.map",
     "static/css/main.efb974b6.chunk.css.map": "/pts-converter/static/css/main.efb974b6.chunk.css.map",
     "static/js/2.9c788562.chunk.js.LICENSE.txt": "/pts-converter/static/js/2.9c788562.chunk.js.LICENSE.txt"
   },
@@ -15,6 +17,6 @@
     "static/js/runtime-main.b29a7be7.js",
     "static/js/2.9c788562.chunk.js",
     "static/css/main.efb974b6.chunk.css",
-    "static/js/main.4fef0ea4.chunk.js"
+    "static/js/main.c39f5f91.chunk.js"
   ]
 }
