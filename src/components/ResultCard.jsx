@@ -31,6 +31,7 @@ export default function ResultCard(props) {
     <>
       <Card elevation={0} className="resultCard">
         <CardHeader
+          className="resultCardHeader"
           title={
             <div className="resultCardHeaderTitle">
               {suttaId.toUpperCase()}

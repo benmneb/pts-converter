@@ -20,6 +20,9 @@ export const theme = createTheme({
       icon: {
         top: 'calc(50% - 0.8rem)',
       },
+      select: {
+        textAlign: 'left',
+      },
     },
   },
 });
