@@ -3,9 +3,9 @@ import FilledInput from '@material-ui/core/FilledInput';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import Icon from '@material-ui/core/Icon';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -173,7 +173,7 @@ export default function Search() {
                 onClick={() => dispatch(clearInput())}
                 disabled={inputText === ''}
               >
-                <Icon>close</Icon>
+                <CloseRoundedIcon fontSize="small" />
               </IconButton>
             </InputAdornment>
           }

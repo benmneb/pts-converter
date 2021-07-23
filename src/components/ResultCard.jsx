@@ -1,9 +1,10 @@
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
-import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import CardHeader from '@material-ui/core/CardHeader';
 import Tooltip from '@material-ui/core/Tooltip';
+import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
+import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -42,12 +43,12 @@ export default function ResultCard(props) {
                   text={suttaId.toUpperCase()}
                   onCopy={() => dispatch(toggleSnackbar())}
                 >
-                  <Icon color="disabled">content_copy</Icon>
+                  <FileCopyOutlinedIcon color="disabled" fontSize="small" />
                 </CopyToClipboard>
               </Tooltip>
             </div>
           }
-          subheader="Select a language to read this sutta:"
+          subheader="Read this sutta:"
         />
         <CardActions className="resultCardActions">
           <Button
@@ -57,7 +58,7 @@ export default function ResultCard(props) {
             rel="noopener noreferrer"
           >
             Pali
-            <Icon className="buttonIcon">open_in_new</Icon>
+            <OpenInNewRoundedIcon className="buttonIcon" fontSize="inherit" />
           </Button>
           {bookId &&
           ['mn', 'sn', 'an', 'dn', 'dhp', 'iti', 'snp'].includes(bookId) ? (
@@ -68,7 +69,7 @@ export default function ResultCard(props) {
               rel="noopener noreferrer"
             >
               English
-              <Icon className="buttonIcon">open_in_new</Icon>
+              <OpenInNewRoundedIcon className="buttonIcon" fontSize="inherit" />
             </Button>
           ) : null}
         </CardActions>

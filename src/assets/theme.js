@@ -21,10 +21,5 @@ export const theme = createTheme({
         top: 'calc(50% - 0.8rem)',
       },
     },
-    MuiIcon: {
-      root: {
-        fontSize: '1rem',
-      },
-    },
   },
 });
