@@ -1,7 +1,7 @@
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 import IconButton from '@material-ui/core/IconButton';
-import Grow from '@material-ui/core/Grow';
+import Collapse from '@material-ui/core/Collapse';
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import AddToHomeScreenRoundedIcon from '@material-ui/icons/AddToHomeScreenRounded';
@@ -45,7 +45,7 @@ export default function AddToHomeScreen() {
   }
 
   return (
-    <Grow
+    <Collapse
       in={Boolean(deferredInstallPrompt)}
       component="aside"
       className="addToHomeScreen"
@@ -53,7 +53,10 @@ export default function AddToHomeScreen() {
       <Alert
         variant="filled"
         severity="info"
-        classes={{ icon: 'addToHomeScreenIcon' }}
+        classes={{
+          icon: 'addToHomeScreenIcon',
+          message: 'addToHomeScreenMessage',
+        }}
         icon={<AddToHomeScreenRoundedIcon />}
         action={[
           <IconButton
@@ -76,9 +79,8 @@ export default function AddToHomeScreen() {
           </IconButton>,
         ]}
       >
-        <AlertTitle>Use offline</AlertTitle>
-        Add this tool to your homescreen to use offline
+        <AlertTitle>Install this app to use it offline</AlertTitle>
       </Alert>
-    </Grow>
+    </Collapse>
   );
 }
