@@ -75,3 +75,10 @@ export function toggleSnackbar() {
     type: 'TOGGLE_SNACKBAR',
   };
 }
+
+export function setDeferredInstallPrompt(prompt) {
+  return {
+    type: 'SET_DEFERRED_INSTALL_PROMPT',
+    prompt,
+  };
+}

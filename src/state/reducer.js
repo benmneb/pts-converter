@@ -8,6 +8,7 @@ const initialState = {
   isError: false,
   errorMessage: null,
   showSnackbar: false,
+  deferredInstallPrompt: null,
 };
 
 export function reducer(state = initialState, action) {
@@ -93,6 +94,11 @@ export function reducer(state = initialState, action) {
       return {
         ...state,
         showSnackbar: !state.showSnackbar,
+      };
+    case 'SET_DEFERRED_INSTALL_PROMPT':
+      return {
+        ...state,
+        deferredInstallPrompt: action.prompt,
       };
     default:
       return state;

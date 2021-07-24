@@ -158,6 +158,17 @@ div.resultCardHeader {
   padding: 4px;
 }
 
+.addToHomeScreen {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 24px 24px;
+  text-align: left;
+}
+
+.addToHomeScreenIcon {
+  align-items: center;
+}
+
 .cursorCopy {
   cursor: copy;
 }
