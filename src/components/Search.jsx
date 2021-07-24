@@ -133,6 +133,7 @@ export default function Search() {
         size="medium"
         variant="filled"
         error={isError && Boolean(inputText.length)}
+        className="searchFormControl"
       >
         <InputLabel htmlFor="search" classes={{ shrink: 'inputShrink' }}>
           Search

@@ -80,6 +80,10 @@ main.tabsWrapper {
   margin: 20px 0;
 }
 
+.searchFormControl {
+  width: 100%;
+}
+
 .MuiInputLabel-filled.MuiInputLabel-shrink.inputShrink {
   transform: translate(12px, 10px) scale(0.55);
 }
