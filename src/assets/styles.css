@@ -91,7 +91,7 @@ main.tabsWrapper {
 .selection {
   display: flex;
   justify-content: space-evenly;
-  margin: 56px 0;
+  margin: 52px 0;
   gap: 8px;
 }
 
