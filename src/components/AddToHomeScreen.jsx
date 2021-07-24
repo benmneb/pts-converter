@@ -21,13 +21,11 @@ export default function AddToHomeScreen() {
   // check if is installable on device
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
-    console.log('before install prompt', e);
     dispatch(setDeferredInstallPrompt(e));
   });
 
-  // check if user is installing
+  // check if user has installed already
   window.addEventListener('appinstalled', (e) => {
-    console.log('app installed', e);
     dispatch(setDeferredInstallPrompt(null));
   });
 
@@ -37,10 +35,7 @@ export default function AddToHomeScreen() {
     const choiceResult = await deferredInstallPrompt.userChoice;
 
     if (choiceResult.outcome === 'accepted') {
-      console.log('User accepted the PWA prompt');
       dispatch(setDeferredInstallPrompt(null));
-    } else {
-      console.log('User dismissed the PWA prompt');
     }
   }
 
