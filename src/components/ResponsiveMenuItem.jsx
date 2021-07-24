@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import Hidden from '@material-ui/core/Hidden';
 
-export const ResponsiveMenuItem = forwardRef((props, ref) => {
+const ResponsiveMenuItem = forwardRef((props, ref) => {
   const { children, ...other } = props;
 
   return (
@@ -21,3 +21,5 @@ export const ResponsiveMenuItem = forwardRef((props, ref) => {
     </>
   );
 });
+
+export default ResponsiveMenuItem;

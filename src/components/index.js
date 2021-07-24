@@ -6,3 +6,4 @@ export { default as Select } from './Select';
 export { default as About } from './About';
 export { default as Snackbar } from './Snackbar';
 export { default as AddToHomeScreen } from './AddToHomeScreen';
+export { default as ResponsiveMenuItem } from './ResponsiveMenuItem';

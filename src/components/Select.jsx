@@ -8,7 +8,7 @@ import { get, isArray } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ptsData from '../data/pts_lookup.json';
-import { ResponsiveMenuItem } from '../utils';
+import { ResponsiveMenuItem } from '.';
 import { selectBook, selectDivision, selectPage } from '../state';
 
 export default function Select() {
