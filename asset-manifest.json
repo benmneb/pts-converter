@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/pts-converter/static/css/main.8823bdff.chunk.css",
-    "main.js": "/pts-converter/static/js/main.d42dd00b.chunk.js",
-    "main.js.map": "/pts-converter/static/js/main.d42dd00b.chunk.js.map",
+    "main.css": "/pts-converter/static/css/main.a3a1099e.chunk.css",
+    "main.js": "/pts-converter/static/js/main.2915bf76.chunk.js",
+    "main.js.map": "/pts-converter/static/js/main.2915bf76.chunk.js.map",
     "runtime-main.js": "/pts-converter/static/js/runtime-main.b29a7be7.js",
     "runtime-main.js.map": "/pts-converter/static/js/runtime-main.b29a7be7.js.map",
     "static/js/2.692f8a9f.chunk.js": "/pts-converter/static/js/2.692f8a9f.chunk.js",
@@ -10,13 +10,13 @@
     "index.html": "/pts-converter/index.html",
     "service-worker.js": "/pts-converter/service-worker.js",
     "service-worker.js.map": "/pts-converter/service-worker.js.map",
-    "static/css/main.8823bdff.chunk.css.map": "/pts-converter/static/css/main.8823bdff.chunk.css.map",
+    "static/css/main.a3a1099e.chunk.css.map": "/pts-converter/static/css/main.a3a1099e.chunk.css.map",
     "static/js/2.692f8a9f.chunk.js.LICENSE.txt": "/pts-converter/static/js/2.692f8a9f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.b29a7be7.js",
     "static/js/2.692f8a9f.chunk.js",
-    "static/css/main.8823bdff.chunk.css",
-    "static/js/main.d42dd00b.chunk.js"
+    "static/css/main.a3a1099e.chunk.css",
+    "static/js/main.2915bf76.chunk.js"
   ]
 }
