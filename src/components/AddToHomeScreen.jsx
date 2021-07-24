@@ -46,7 +46,7 @@ export default function AddToHomeScreen() {
 
   return (
     <Collapse
-      in={deferredInstallPrompt}
+      in={Boolean(deferredInstallPrompt)}
       component="aside"
       className="addToHomeScreen"
     >
