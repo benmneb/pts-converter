@@ -59,9 +59,9 @@ export default function Search() {
           get(indexesData, `${ed}.${division}`, null)
       );
 
-      // account for books with and without divisions
+      // if bothResults array is full of nulls
       if (bothResults.every((elem) => elem === null)) {
-        // check if has no divisions
+        // check if has no divisions. '20' is just a number, if lots of children then it probably has no divisions, because the children are the page results
         if (Object.values(indexesData).every((child) => child.length > 20)) {
           dispatch(setError('Please enter a valid page number'));
           return dispatch(resetInputValues());
@@ -72,7 +72,7 @@ export default function Search() {
         return dispatch(resetInputValues());
       }
 
-      // filter out null results (when only one edition has the searched page)
+      // filter out null results (so when only one edition has the searched page)
       const results = bothResults.filter(
         (result) => result !== null && result.length <= 2
       );
@@ -152,6 +152,7 @@ export default function Search() {
           endAdornment={
             <InputAdornment position="end">
               <IconButton
+                aria-label="clear search input"
                 onClick={() => dispatch(clearInput())}
                 disabled={inputText === ''}
               >
