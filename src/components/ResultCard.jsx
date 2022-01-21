@@ -24,7 +24,7 @@ export default function ResultCard(props) {
   const [suttaId, ptsRef] = data;
 
   const bookId = suttaId.match(/[^0-9]+/gi)[0];
-  const translator = ['snp'].includes(bookId) ? 'mills' : 'sujato';
+  const translator = ['vb'].includes(bookId) ? 'thittila' : 'sujato';
   const referral = window.location.origin.split('://')[1];
 
   return (
@@ -62,17 +62,22 @@ export default function ResultCard(props) {
             <OpenInNewRoundedIcon className="buttonIcon" fontSize="inherit" />
           </Button>
           {bookId &&
-          ['mn', 'sn', 'an', 'dn', 'dhp', 'iti', 'snp'].includes(bookId) ? (
-            <Button
-              variant="outlined"
-              href={`https://suttacentral.net/${suttaId}/en/${translator}#${ptsRef}?ref=${referral}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              English
-              <OpenInNewRoundedIcon className="buttonIcon" fontSize="inherit" />
-            </Button>
-          ) : null}
+            ['mn', 'sn', 'an', 'dn', 'dhp', 'iti', 'snp', 'vb'].includes(
+              bookId
+            ) && (
+              <Button
+                variant="outlined"
+                href={`https://suttacentral.net/${suttaId}/en/${translator}#${ptsRef}?ref=${referral}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                English
+                <OpenInNewRoundedIcon
+                  className="buttonIcon"
+                  fontSize="inherit"
+                />
+              </Button>
+            )}
         </CardActions>
       </Card>
       <Snackbar open={showSnackbar} />
