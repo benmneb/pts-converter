@@ -6,11 +6,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { Snackbar } from '.';
 import { toggleSnackbar } from '../state';
 import '../assets/styles.css';
 
@@ -18,8 +17,6 @@ export default function ResultCard(props) {
   const { data } = props;
 
   const dispatch = useDispatch();
-
-  const showSnackbar = useSelector((state) => state.showSnackbar);
 
   const [suttaId, ptsRef] = data;
 
@@ -80,7 +77,6 @@ export default function ResultCard(props) {
             )}
         </CardActions>
       </Card>
-      <Snackbar open={showSnackbar} />
     </>
   );
 }

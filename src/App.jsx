@@ -3,7 +3,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 
 import { theme } from './assets';
 import { Footer, Header, Nav, Main } from './containers';
-import { AddToHomeScreen } from './components';
+import { AddToHomeScreen, Snackbar } from './components';
 import './assets/styles.css';
 
 export default function App() {
@@ -15,6 +15,7 @@ export default function App() {
       <Main />
       <AddToHomeScreen />
       <Footer />
+      <Snackbar />
     </ThemeProvider>
   );
 }
