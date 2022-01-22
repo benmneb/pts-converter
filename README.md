@@ -32,6 +32,7 @@ The select tab allows for manual entering of book reference, division and page n
 - Dhp (1ed)
 - Dhp (2ed)
 - Dhs
+- Dt
 - It
 - Ja
 - Kv
@@ -41,21 +42,20 @@ The select tab allows for manual entering of book reference, division and page n
 - Nidd I
 - Nidd II
 - Patis
+- Pe
 - Pp
 - Pv (2ed)
 - S (1ed)
 - S (2ed)
 - Sn
-- Th
-- Thi
+- Tha-ap
+- Thag
+- Thi-ap
+- Thig
 - Ud
 - Vib
 - Vv (2ed)
-- dt
-- pe
-- tha
-- thi
-- ya
+- Ya
 
 ## About
 
