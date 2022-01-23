@@ -12,29 +12,30 @@ export default function Main() {
   const setNavTab = useStore((state) => state.setNavTab);
 
   return (
-    <Card className="tabsWrapper" component="main">
-      <SwipeableViews
-        index={tabValue}
-        onChangeIndex={(value) => setNavTab(value)}
-      >
-        <TabContainer index={0} value={tabValue}>
-          <Typography paragraph component="h2">
-            Please type or copy & paste the PTS reference you want to convert.
-          </Typography>
-          <Search />
-          <Results />
-        </TabContainer>
-        <TabContainer index={1} value={tabValue}>
-          <Typography paragraph component="h2">
-            Please select the PTS reference you want to convert.
-          </Typography>
-          <Select />
-          <Results />
-        </TabContainer>
-        <TabContainer index={2} value={tabValue}>
-          <About />
-        </TabContainer>
-      </SwipeableViews>
-    </Card>
+    <main className="tabsWrapper">
+      <Card elevation={3}>
+        <SwipeableViews
+          index={tabValue}
+          onChangeIndex={(value) => setNavTab(value)}
+        >
+          <TabContainer index={0} value={tabValue}>
+            <Typography paragraph component="h2">
+              Please type or copy & paste the PTS reference you want to convert.
+            </Typography>
+            <Search />
+          </TabContainer>
+          <TabContainer index={1} value={tabValue}>
+            <Typography paragraph component="h2">
+              Please select the PTS reference you want to convert.
+            </Typography>
+            <Select />
+          </TabContainer>
+          <TabContainer index={2} value={tabValue}>
+            <About />
+          </TabContainer>
+        </SwipeableViews>
+      </Card>
+      <Results />
+    </main>
   );
 }

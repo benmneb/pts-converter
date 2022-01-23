@@ -21,13 +21,27 @@ export default function Results() {
     return null;
   }
 
-  return finalResult.flat().length > 2 ? (
-    <div className="multiResultCardContainer">
-      {finalResult.map((res) => (
-        <ResultCard key={res} data={res} />
-      ))}
-    </div>
-  ) : (
-    <ResultCard data={finalResult.flat()} />
+  if (finalResult.reduce((prev, curr) => prev[0] === curr[0])) {
+    return (
+      <article className="resultCardContainer">
+        <ResultCard data={finalResult.flat()} />
+      </article>
+    );
+  }
+
+  if (finalResult.flat().length > 2) {
+    return (
+      <article className="multiResultCardContainer">
+        {finalResult.map((res, i) => (
+          <ResultCard key={res} data={res} edition={i + 1} />
+        ))}
+      </article>
+    );
+  }
+
+  return (
+    <article className="resultCardContainer">
+      <ResultCard data={finalResult.flat()} />
+    </article>
   );
 }

@@ -65,10 +65,13 @@ hr {
   border-radius: 16px 16px 0 0;
 }
 
-main.tabsWrapper {
+.tabsWrapper {
   width: 100%;
   max-width: 600px;
   margin: 0 24px 24px;
+}
+
+.tabsWrapper > div:first-of-type {
   border-radius: 0 0 16px 16px;
 }
 
@@ -104,10 +107,11 @@ main.tabsWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 24px;
 }
 
 div.resultCardHeader {
-  padding: 16px 16px 8px;
+  padding: 4px 16px;
 }
 
 .resultCardHeaderTitle {
@@ -124,7 +128,12 @@ div.resultCardHeader {
   width: 100%;
 }
 
+.resultCardContainer {
+  margin-top: 16px;
+}
+
 .multiResultCardContainer {
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
   gap: 16px;

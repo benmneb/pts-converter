@@ -9,10 +9,10 @@ export default function About() {
     <Typography component="article">
       <section>
         <p>
-          The search tab is a case-insensitive PTS lookup that references{' '}
+          The <u>search tab</u> is a case-insensitive PTS lookup that references{' '}
           {totalBooks} different books. It is perfect for copy and pasting or
           quickly typing Pali Text Society references and reading the sutta
-          online.
+          immediately.
         </p>
         <p>
           The search input accepts two or three whitespace/period seperated
@@ -22,16 +22,12 @@ export default function About() {
         </p>
         <p>
           You don't need to specify a book edition number, by default the search
-          will return all available editions.
+          will be performed on all available editions. However, multiple results
+          will only appear when their references differ.
         </p>
         <p>
-          If multiple results appear, it's because the reference you searched
-          for applied to multiple book editions. The earliest edition's
-          reference is always displayed first.
-        </p>
-        <p>
-          The select tab allows for manual entering of book reference, division
-          and page number.
+          The <u>select tab</u> allows for manual entering of book reference,
+          division and page number.
         </p>
         <p>
           For comments and corrections, please{' '}
