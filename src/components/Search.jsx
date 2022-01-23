@@ -7,28 +7,27 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 
-import { useDispatch, useSelector } from 'react-redux';
-
 import { get, isArray } from 'lodash';
 
+import { useStore } from '../state';
+
 import ptsData from '../data/pts_lookup.json';
-import {
-  setError,
-  resetInputValues,
-  clearInput,
-  setMultipleEditionSearchResults,
-  setSearchResults,
-  handleInputChange,
-} from '../state';
 import { hasMoreThanOne, toSentenceCase } from '../utils';
 import '../assets/styles.css';
 
 export default function Search() {
-  const dispatch = useDispatch();
+  const inputText = useStore((state) => state.inputText);
+  const isError = useStore((state) => state.isError);
+  const errorMessage = useStore((state) => state.errorMessage);
 
-  const inputText = useSelector((state) => state.inputText);
-  const isError = useSelector((state) => state.isError);
-  const errorMessage = useSelector((state) => state.errorMessage);
+  const setError = useStore((state) => state.setError);
+  const resetInputValues = useStore((state) => state.resetInputValues);
+  const clearInput = useStore((state) => state.clearInput);
+  const setMultipleEditionSearchResults = useStore(
+    (state) => state.setMultipleEditionSearchResults
+  );
+  const setSearchResults = useStore((state) => state.setSearchResults);
+  const handleInputChange = useStore((state) => state.handleInputChange);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -40,8 +39,7 @@ export default function Search() {
 
     // if book has multiple editions
     if (
-      Object.keys(ptsData).filter((eachBook) => eachBook.includes(`${book} `))
-        .length > 0
+      Object.keys(ptsData).some((eachBook) => eachBook.includes(`${book} `))
     ) {
       // get indexes of all book editions
       const indexes = hasMoreThanOne(
@@ -63,13 +61,13 @@ export default function Search() {
       if (bothResults.every((elem) => elem === null)) {
         // check if has no divisions. '20' is just a number, if lots of children then it probably has no divisions, because the children are the page results
         if (Object.values(indexesData).every((child) => child.length > 20)) {
-          dispatch(setError('Please enter a valid page number'));
-          return dispatch(resetInputValues());
+          setError('Please enter a valid page number');
+          return resetInputValues();
         }
 
         // must have divisions
-        dispatch(setError('Please enter a valid book division'));
-        return dispatch(resetInputValues());
+        setError('Please enter a valid book division');
+        return resetInputValues();
       }
 
       // filter out null results (so when only one edition has the searched page)
@@ -79,14 +77,12 @@ export default function Search() {
 
       // handle (what is probably a) page number error
       if (!results.length) {
-        dispatch(setError('Please enter a valid page number'));
-        return dispatch(resetInputValues());
+        setError('Please enter a valid page number');
+        return resetInputValues();
       }
 
       // else all is good!
-      return dispatch(
-        setMultipleEditionSearchResults(results, input.join(' '))
-      );
+      return setMultipleEditionSearchResults(results, input.join(' '));
     }
 
     // has only one edition
@@ -95,36 +91,36 @@ export default function Search() {
     if (isArray(ptsData[book]) && typeof ptsData[book] !== 'undefined') {
       // page number reference is out of range (the const 'division' refers to page number for books that have no division)
       if (!ptsData[book][division]) {
-        dispatch(setError('Please enter a valid page number'));
-        return dispatch(resetInputValues());
+        setError('Please enter a valid page number');
+        return resetInputValues();
       }
 
       // else all is good!
-      return dispatch(setSearchResults(book, '', division, input.join(' ')));
+      return setSearchResults(book, '', division, input.join(' '));
     }
 
     // book has divisions
 
     // book reference is incorrect
     if (!ptsData[book]) {
-      dispatch(setError('Please enter a valid book reference'));
-      return dispatch(resetInputValues());
+      setError('Please enter a valid book reference');
+      return resetInputValues();
     }
 
     // division reference is incorrect
     if (!ptsData[book][division]) {
-      dispatch(setError('Please enter a valid book division'));
-      return dispatch(resetInputValues());
+      setError('Please enter a valid book division');
+      return resetInputValues();
     }
 
     // number reference is incorrect
     if (!ptsData[book][division][page]) {
-      dispatch(setError('Please enter a valid page number'));
-      return dispatch(resetInputValues());
+      setError('Please enter a valid page number');
+      return resetInputValues();
     }
 
     // else all is good!
-    return dispatch(setSearchResults(book, division, page, input.join(' ')));
+    return setSearchResults(book, division, page, input.join(' '));
   }
 
   return (
@@ -142,7 +138,7 @@ export default function Search() {
           id="search"
           placeholder="ie. D ii 14"
           value={inputText}
-          onChange={(e) => dispatch(handleInputChange(e.target.value))}
+          onChange={(e) => handleInputChange(e.target.value)}
           aria-describedby="search-text"
           inputProps={{
             autoComplete: 'off',
@@ -154,7 +150,7 @@ export default function Search() {
             <InputAdornment position="end">
               <IconButton
                 aria-label="clear search input"
-                onClick={() => dispatch(clearInput())}
+                onClick={() => clearInput()}
                 disabled={inputText === ''}
               >
                 <CloseRoundedIcon fontSize="small" />

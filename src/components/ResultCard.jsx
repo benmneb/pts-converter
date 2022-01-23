@@ -6,17 +6,16 @@ import Tooltip from '@material-ui/core/Tooltip';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
 
-import { useDispatch } from 'react-redux';
+import { useStore } from '../state';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { toggleSnackbar } from '../state';
 import '../assets/styles.css';
 
 export default function ResultCard(props) {
   const { data } = props;
 
-  const dispatch = useDispatch();
+  const toggleSnackbar = useStore((state) => state.toggleSnackbar);
 
   const [suttaId, ptsRef] = data;
 
@@ -63,7 +62,7 @@ export default function ResultCard(props) {
               >
                 <CopyToClipboard
                   text={suttaId.toUpperCase()}
-                  onCopy={() => dispatch(toggleSnackbar())}
+                  onCopy={() => toggleSnackbar()}
                 >
                   <FileCopyOutlinedIcon color="disabled" fontSize="small" />
                 </CopyToClipboard>

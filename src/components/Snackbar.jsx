@@ -1,18 +1,16 @@
 import MuiSnackbar from '@material-ui/core/Snackbar';
 
-import { useDispatch, useSelector } from 'react-redux';
-
-import { toggleSnackbar } from '../state';
+import { useStore } from '../state';
 import '../assets/styles.css';
 
 export default function Snackbar() {
-  const dispatch = useDispatch();
+  const showSnackbar = useStore((state) => state.showSnackbar);
 
-  const showSnackbar = useSelector((state) => state.showSnackbar);
+  const toggleSnackbar = useStore((state) => state.toggleSnackbar);
 
   function handleClose(event, reason) {
     if (reason !== 'clickaway') {
-      dispatch(toggleSnackbar());
+      toggleSnackbar();
     }
   }
 

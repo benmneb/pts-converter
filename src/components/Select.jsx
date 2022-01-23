@@ -5,18 +5,18 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { get, isArray } from 'lodash';
 
-import { useDispatch, useSelector } from 'react-redux';
-
+import { useStore } from '../state';
 import ptsData from '../data/pts_lookup.json';
 import { ResponsiveMenuItem } from '.';
-import { selectBook, selectDivision, selectPage } from '../state';
 
 export default function Select() {
-  const dispatch = useDispatch();
+  const book = useStore((state) => state.selectedBook);
+  const division = useStore((state) => state.selectedDivision);
+  const page = useStore((state) => state.selectedPage);
 
-  const book = useSelector((state) => state.selectedBook);
-  const division = useSelector((state) => state.selectedDivision);
-  const page = useSelector((state) => state.selectedPage);
+  const selectBook = useStore((state) => state.selectBook);
+  const selectDivision = useStore((state) => state.selectDivision);
+  const selectPage = useStore((state) => state.selectPage);
 
   const mobile = useMediaQuery((theme) => theme.breakpoints.only('xs'));
 
@@ -28,7 +28,7 @@ export default function Select() {
           native={mobile}
           name="selectedBook"
           value={book}
-          onChange={(e) => dispatch(selectBook(e.target.value))}
+          onChange={(e) => selectBook(e.target.value)}
         >
           <ResponsiveMenuItem value="" aria-label="none">
             {!mobile ? <em>None</em> : null}
@@ -48,7 +48,7 @@ export default function Select() {
           native={mobile}
           name="selectedDiv"
           value={division}
-          onChange={(e) => dispatch(selectDivision(e.target.value))}
+          onChange={(e) => selectDivision(e.target.value)}
           disabled={!book || isArray(ptsData[book])}
         >
           <ResponsiveMenuItem value="" aria-label="none">
@@ -69,7 +69,7 @@ export default function Select() {
           native={mobile}
           name="selectedNum"
           value={page}
-          onChange={(e) => dispatch(selectPage(e.target.value))}
+          onChange={(e) => selectPage(e.target.value)}
           disabled={
             !isArray(ptsData[book]) &&
             !isArray(get(ptsData, `${book}.${division}`, null))

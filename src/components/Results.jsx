@@ -1,15 +1,14 @@
 import { get } from 'lodash';
 
-import { useSelector } from 'react-redux';
-
+import { useStore } from '../state';
 import ptsData from '../data/pts_lookup.json';
 import { ResultCard } from '../components';
 
 export default function Results() {
-  const book = useSelector((state) => state.selectedBook);
-  const division = useSelector((state) => state.selectedDivision);
-  const page = useSelector((state) => state.selectedPage);
-  const multipleEditionResults = useSelector(
+  const book = useStore((state) => state.selectedBook);
+  const division = useStore((state) => state.selectedDivision);
+  const page = useStore((state) => state.selectedPage);
+  const multipleEditionResults = useStore(
     (state) => state.multipleEditionResults
   );
 

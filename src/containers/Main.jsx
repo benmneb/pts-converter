@@ -3,22 +3,19 @@ import Card from '@material-ui/core/Card';
 
 import SwipeableViews from 'react-swipeable-views';
 
-import { useSelector, useDispatch } from 'react-redux';
-
-import { setNavTab } from '../state';
-
+import { useStore } from '../state';
 import { TabContainer, Results, Search, Select, About } from '../components';
 
 export default function Main() {
-  const dispatch = useDispatch();
+  const tabValue = useStore((state) => state.navTab);
 
-  const tabValue = useSelector((state) => state.navTab);
+  const setNavTab = useStore((state) => state.setNavTab);
 
   return (
     <Card className="tabsWrapper" component="main">
       <SwipeableViews
         index={tabValue}
-        onChangeIndex={(value) => dispatch(setNavTab(value))}
+        onChangeIndex={(value) => setNavTab(value)}
       >
         <TabContainer index={0} value={tabValue}>
           <Typography paragraph component="h2">

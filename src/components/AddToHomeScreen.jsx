@@ -6,27 +6,27 @@ import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import AddToHomeScreenRoundedIcon from '@material-ui/icons/AddToHomeScreenRounded';
 
-import { useSelector, useDispatch } from 'react-redux';
-
-import { setDeferredInstallPrompt } from '../state';
+import { useStore } from '../state';
 import '../assets/styles.css';
 
 export default function AddToHomeScreen() {
-  const dispatch = useDispatch();
-
-  const deferredInstallPrompt = useSelector(
+  const deferredInstallPrompt = useStore(
     (state) => state.deferredInstallPrompt
+  );
+
+  const setDeferredInstallPrompt = useStore(
+    (state) => state.setDeferredInstallPrompt
   );
 
   // check if is installable on device
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
-    dispatch(setDeferredInstallPrompt(e));
+    setDeferredInstallPrompt(e);
   });
 
   // check if user has installed already
-  window.addEventListener('appinstalled', (e) => {
-    dispatch(setDeferredInstallPrompt(null));
+  window.addEventListener('appinstalled', () => {
+    setDeferredInstallPrompt(null);
   });
 
   async function handleInstallClick() {
@@ -35,7 +35,7 @@ export default function AddToHomeScreen() {
     const choiceResult = await deferredInstallPrompt.userChoice;
 
     if (choiceResult.outcome === 'accepted') {
-      dispatch(setDeferredInstallPrompt(null));
+      setDeferredInstallPrompt(null);
     }
   }
 
@@ -67,7 +67,7 @@ export default function AddToHomeScreen() {
             aria-label="don't add to home screen"
             color="inherit"
             onClick={() => {
-              dispatch(setDeferredInstallPrompt(null));
+              setDeferredInstallPrompt(null);
             }}
           >
             <CloseRoundedIcon fontSize="inherit" />
