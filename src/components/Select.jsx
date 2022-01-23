@@ -30,9 +30,6 @@ export default function Select() {
           value={book}
           onChange={(e) => selectBook(e.target.value)}
         >
-          <ResponsiveMenuItem value="" aria-label="none">
-            {!mobile ? <em>None</em> : null}
-          </ResponsiveMenuItem>
           {Object.keys(ptsData)
             .sort()
             .map((k) => (
@@ -43,7 +40,9 @@ export default function Select() {
         </MuiSelect>
       </FormControl>
       <FormControl>
-        <InputLabel>Division</InputLabel>
+        <InputLabel>
+          {(isArray(ptsData[book]) && 'N/A') || 'Division'}
+        </InputLabel>
         <MuiSelect
           native={mobile}
           name="selectedDiv"
@@ -51,9 +50,6 @@ export default function Select() {
           onChange={(e) => selectDivision(e.target.value)}
           disabled={!book || isArray(ptsData[book])}
         >
-          <ResponsiveMenuItem value="" aria-label="none">
-            {!mobile ? <em>None</em> : null}
-          </ResponsiveMenuItem>
           {!isArray(ptsData[book]) && typeof ptsData[book] !== 'undefined'
             ? Object.keys(ptsData[book]).map((k) => (
                 <ResponsiveMenuItem value={k} key={k}>
@@ -75,9 +71,6 @@ export default function Select() {
             !isArray(get(ptsData, `${book}.${division}`, null))
           }
         >
-          <ResponsiveMenuItem value="" aria-label="none">
-            {!mobile ? <em>None</em> : null}
-          </ResponsiveMenuItem>
           {isArray(get(ptsData, `${book}.${division}`, null))
             ? Object.entries(get(ptsData, `${book}.${division}`, null))
                 .filter(([k, v]) => v !== null)
