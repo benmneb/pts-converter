@@ -3,7 +3,7 @@
 html {
   font-family: 'Inter', sans-serif;
   font-feature-settings: 'zero', 'ss01', 'ss02', 'ss03';
-  font-size: calc(1em + 1vw);
+  font-size: clamp(1em, calc(1em + 1vw), 2em);
 }
 
 @supports (font-variation-settings: normal) {
